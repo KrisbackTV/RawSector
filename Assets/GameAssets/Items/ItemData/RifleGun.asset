@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49c619f1e252c341977042f13a919a4, type: 3}
+  m_Name: RifleGun
+  m_EditorClassIdentifier: Assembly-CSharp::GunItemData
+  id: 4
+  itemName: RifleGun
+  width: 4
+  height: 2
+  type: 1
+  maxCountForStack: 1
+  color: {r: 0.38521358, g: 0.3396867, b: 0.645283, a: 1}
+  inventoryIcon: {fileID: 0}
+  worldPrefab: {fileID: 2566009654982961982, guid: f7ec9558d701004478c881c750a8a163, type: 3}
+  equipmentPrefab: {fileID: 8712643593242644624, guid: d8b5c910c0018f049bec96c72807801c, type: 3}
+  WeaponType: 1
+  damage: 10
+  roundsPerMinute: 120
+  range: 100
+  accuracy: 0.9

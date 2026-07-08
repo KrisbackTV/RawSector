@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168d20c2b8602114586b08c903d83fed, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDataSO
+  enemyStance: 0
+  movementState: 0
+  groundState: 0
+  standHeight: 1.9
+  crouchHeight: 1.4
+  proneHeight: 0.9
+  sprintSpeed: 7
+  standSpeed: 4
+  crouchSpeed: 2
+  proneSpeed: 1.5
+  jumpHeight: 1
+  maxHealth: 0
+  maxStamine: 100
+  regenRateStamine: 10
+  regenDelayStamine: 3
+  sprintStaminaCost: 20
+  currentHealth: 0
+  currentStamine: 48.86086
+  currentHeight: 0
+  currentSpeed: 4
+  sensivity: 200
+  inventorySO: {fileID: 11400000, guid: f98173c04d2400c47aa7f60d59b5c363, type: 2}
+  EquipSlotPrimaryGunSO: {fileID: 11400000, guid: 3df5e45440c13d041a74559598ad32de, type: 2}
+  EquipSlotSecondaryGunSO: {fileID: 11400000, guid: ba4f143f4982ddf48a33fe3464aa8687, type: 2}
+  EquipSlotKnifeSO: {fileID: 11400000, guid: 56f85b65a6da42e4db49deccc099d0e8, type: 2}
+  EquipSlotGrenadeSO: {fileID: 11400000, guid: 503fc2e0232d2a449bdbce9371330a9d, type: 2}
+  EquipSlotArmorSO: {fileID: 11400000, guid: a389b3aebe8a8954fa6d616e3fcfae9c, type: 2}
+  EquipSlotBackpackSO: {fileID: 11400000, guid: f5449d6894d2b7e43a1af88db2b097b5, type: 2}
+  equipSlotIndex: 0
+  money: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 795eb1cf2925bcb468a52ebaa63e7ba3, type: 3}
+  m_Name: 9mm Base
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoItemData
+  id: 1111
+  itemName: 9mm_Base
+  width: 1
+  height: 1
+  type: 1
+  maxCount: 30
+  color: {r: 0.13181198, g: 0.7056604, b: 0.4875324, a: 1}
+  ItemSprite: {fileID: 2131947119, guid: 83b1de5fbe4cf214e948ac91ae131e27, type: 3}
+  worldPrefab: {fileID: 7203973249074550176, guid: 9933c354f8f3a7e4ebff0e4ce1ce1526, type: 3}
+  equipmentPrefab: {fileID: 0}
+  _ammoType: 0
+  _ammoCaliber: 0
+  _damage: 12
+  _armorPenetration: 0
+  _bleedChance: 0
