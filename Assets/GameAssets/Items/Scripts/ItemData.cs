@@ -4,8 +4,7 @@ public enum ItemType
 {
     Item,
     Ammo,
-    PrimaryGun,
-    SecondaryGun,
+    Gun,
     Knife,
     Grenade,
     Armor,
@@ -14,6 +13,7 @@ public enum ItemType
 
 public enum EquipmentType
 {
+    Noon,
     PrimaryGun,
     SecondaryGun,
     Knife,
@@ -29,6 +29,8 @@ public abstract class ItemData : ScriptableObject
     public string itemName = "Новый предмет";
     public int width = 0, height = 0;
     public ItemType type = ItemType.Item;
+    public bool IsEquipped = false;
+    public EquipmentType equipmentType = EquipmentType.Noon;
     public int maxCount = 0;
 
     public Color color = Color.white;

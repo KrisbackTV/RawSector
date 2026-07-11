@@ -17,9 +17,11 @@ MonoBehaviour:
   width: 3
   height: 2
   type: 2
-  maxCountForStack: 1
+  IsEquipped: 1
+  equipmentType: 2
+  maxCount: 1
   color: {r: 0.110736914, g: 0.222939, b: 0.3886792, a: 1}
-  inventoryIcon: {fileID: 0}
+  ItemSprite: {fileID: -1282864485, guid: bddaa2810808fc843abe0d3738883a61, type: 3}
   worldPrefab: {fileID: 6630085357351509692, guid: 002ea2526701cc5478ff48a1983f6b0e, type: 3}
   equipmentPrefab: {fileID: 5167005290268115187, guid: f0fd17a9c0e3aca4d89009774196b314, type: 3}
   WeaponType: 0

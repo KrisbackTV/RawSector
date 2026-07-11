@@ -26,9 +26,7 @@ public class DragAndDropService : IStartable
 
     public bool IsDragging { get; private set; } = false;
     public ItemInstance _draggedItem { get; private set; }
-    public InventoryData _sourceInventory { get; private set; }
-
-    public EquipmentType _sourceEquipmentType { get; private set; }
+    public IItemSource _sourceInventory { get; private set; }
 
 
     private void GetCurrentDragItem(Action<ItemInstance> callback)
@@ -36,19 +34,7 @@ public class DragAndDropService : IStartable
         callback?.Invoke(_draggedItem);
     }
 
-    public void StartDrag(EquipmentType type, ItemInstance item)
-    {
-        if (item == null) return;
-
-        _draggedItem = item;
-        _sourceEquipmentType = type;
-        IsDragging = true;
-        _inventoryActions.InvokeOnShowGhostItem(item);
-
-        _inventoryActions.InvokeOnDropItemToSlot(type, null);
-    }
-
-    public void StartDrag(ItemInstance item, InventoryData inventory, bool isCopyItem)
+    public void StartDrag(ItemInstance item, IItemSource inventory, bool isCopyItem)
     {
         if (item == null || inventory == null) return;
 
@@ -59,15 +45,17 @@ public class DragAndDropService : IStartable
 
         if (!isCopyItem)
         {
-            _inventoryActions.InvokeOnRemoveItem(inventory, item, null);
+            inventory.Remove(item, null);
         }
     }
 
-    public void EndDrag(InventoryData inventoryData, Vector2Int targetCell)
+    public void EndDrag(IItemSource inventoryData)
     {
-        if (!IsDragging || _draggedItem == null) return;
+        if (!IsDragging || _draggedItem == null || inventoryData == null) return;
 
-        _inventoryActions.InvokeOnTryPlaceItem(inventoryData, _draggedItem, targetCell.x, targetCell.y, (isSuccess) =>
+        Debug.Log("enddrag");
+
+        inventoryData.Receive(_draggedItem, (isSuccess) =>
          {
              if (isSuccess)
              {
@@ -75,28 +63,17 @@ public class DragAndDropService : IStartable
              }
              else
              {
-                 _inventoryActions.InvokeOnTryAddToFreeSlot(_sourceInventory, _draggedItem, (isReturn) =>
-                 {
-                     if (isReturn)
-                     {
-                         FinishDragging();
-                     }
-                     else
-                     {
-                         _inventoryActions.InvokeOnDropItemInWorld(_draggedItem);
-                         FinishDragging();
-                     }
-                 });
+                 _inventoryActions.InvokeOnDropItemInWorld(_draggedItem);
+                 FinishDragging();
              }
          });
-
     }
 
     public void CancelDrag()
     {
         if (!IsDragging) return;
 
-        _inventoryActions.InvokeOnTryAddToFreeSlot(_sourceInventory, _draggedItem, (isSuccess) =>
+        _sourceInventory.Receive(_draggedItem, (isSuccess) =>
         {
             if (isSuccess)
             {

@@ -3,22 +3,24 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using VContainer;
 
 public class EquipSlotView : MonoBehaviour, IPointerDownHandler
 {
     private AssetsLibrarySO _assetsLibrarySO;
     private InventoryActions _inventoryActions;
+    private PlayerData _playerData;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions inventoryActions)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions inventoryActions, PlayerData playerData)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inventoryActions = inventoryActions;
+        _playerData = playerData;
 
         if (_inventoryActions != null)
         {
-            _inventoryActions.OnUpdateToSlot += UpdateSlotView;
+            _inventoryActions.OnUpdateToEquipmentSlot += UpdateSlotView;
         }
     }
 
@@ -46,20 +48,45 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
     {
         if (type != _slotType) return;
 
-        if (_slotImage != null)
+        if (itemInstance != null)
         {
-            _slotImage.sprite = itemInstance._itemSprite;
+            if (_slotImage != null)
+            {
+                    _slotImage.sprite = itemInstance._itemSprite;
+                    _slotImage.color = Color.white;
+            }
+        
+            if (_slotName != null)
+            {
+                _slotName.text = itemInstance._itemName;
+            }
+
+            if (_slotCount != null)
+            {
+                if (itemInstance._count > 1) _slotCount.text = itemInstance._count.ToString();
+            }
+        }
+        else
+        {
+            Debug.Log("itemInstance == null");
+            if (_slotImage != null)
+            {
+                _slotImage.sprite = null;
+                _slotImage.color = new Color32(32,32,32,255);
+            }
+
+            if (_slotName != null)
+            {
+                _slotName.text = "";
+            }
+
+            if (_slotCount != null)
+            {
+                _slotCount.text = "";
+            }
         }
 
-        if (_slotName != null)
-        {
-            _slotName.text = itemInstance._itemName;
-        }
 
-        if (_slotCount != null)
-        {
-            if (itemInstance._count > 1) _slotCount.text = itemInstance._count.ToString();
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -71,10 +98,17 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                 {
                     if (!isDragging)
                     {
+                        _inventoryActions.InvokeOnStartDrag(_playerData._equipmentSO.GetItemToSlot(_slotType), _playerData._equipmentSO, false);
                     }
                     else
                     {
-
+                        _inventoryActions.InvokeOnGetCurrentDragItem((draggItem) =>
+                        {
+                            if (draggItem._itemData.equipmentType == _slotType)
+                            {
+                                _inventoryActions.InvokeOnEndDrag(_playerData._equipmentSO);
+                            }
+                        });
                     }
                 });
                 break;

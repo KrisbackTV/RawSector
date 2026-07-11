@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using System;
 using Unity.VisualScripting;
 using UnityEditor.Rendering.Universal;
 using UnityEngine;
@@ -14,29 +15,47 @@ public class EquipmentService
     {
         _assetsLibrarySO = assetsLibrarySO;
         _actionList = uIActionList;
-        _playerData = playerData;
 
         if (_actionList != null)
         {
-            _actionList.OnDropItemToSlot += SetItemForSlot;
+            _actionList.OnDropItemToEquipmentSlot += SetItemForSlot;
+            _actionList.OnRemoveItemToEquipmentSlot += RemoveItemToSlot;
         }
     }
 
-    public void SetItemForSlot(EquipmentType slotType, ItemInstance item)
+    public void SetItemForSlot(EquipmentData data, ItemInstance item)
     {
-        if (_playerData == null)
+        if (data == null || item == null)
         {
-            Debug.Log("_playerData отсутствует");
+            Debug.Log("playerData/itemInstance отсутствует");
             return;
         }
 
-        _playerData._equipmentSO.SetItemForType(item, slotType);
-        _actionList.InvokeOnUpdateToSlot(slotType, item);
+        SetItemForType(data, item, null);
     }
 
-    public ItemInstance GetItemToSlot(EquipmentType slotType)
+    public void RemoveItemToSlot(EquipmentData data, EquipmentType type)
     {
-        return _playerData._equipmentSO.GetItemForType(slotType);
+        if (type == EquipmentType.Noon) return;
+
+        data.SetItem(type, null);
     }
 
+    private void SetItemForType(EquipmentData equipmentData, ItemInstance item, Action<bool> callback)
+    {
+        if (item == null || !item._itemData.IsEquipped)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        if (equipmentData.GetItemToSlot(item._itemData.equipmentType) != null)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        equipmentData.SetItem(item._itemData.equipmentType, item);
+        callback?.Invoke(true);
+    }
 }

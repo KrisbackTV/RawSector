@@ -6,24 +6,24 @@ public class InventoryActions
     //INVENTORY System
 
     //Logic Action
-    public event Action<InventoryData, ItemInstance, Action<bool>> OnTryAddToFreeSlot;
-    public void InvokeOnTryAddToFreeSlot(InventoryData data, ItemInstance itemInstance, Action<bool> callback) => OnTryAddToFreeSlot?.Invoke(data, itemInstance, callback);
+    public event Action<InventoryData, ItemInstance, Action<bool>> OnTryAddToFreeSlotToInventory;
+    public void InvokeOnTryAddToFreeSlotToInventory(InventoryData data, ItemInstance itemInstance, Action<bool> callback) => OnTryAddToFreeSlotToInventory?.Invoke(data, itemInstance, callback);
 
-    public event Action<InventoryData, ItemInstance, int, int, Action<bool>> OnTryPlaceItem;
-    public void InvokeOnTryPlaceItem(InventoryData inventoryData, ItemInstance item, int startX, int startY, Action<bool> callback) => OnTryPlaceItem?.Invoke(inventoryData, item, startX, startY, callback);
+    public event Action<InventoryData, ItemInstance, int, int, Action<bool>> OnTryPlaceItemToInventory;
+    public void InvokeOnTryPlaceItemToInventory(InventoryData inventoryData, ItemInstance item, int startX, int startY, Action<bool> callback) => OnTryPlaceItemToInventory?.Invoke(inventoryData, item, startX, startY, callback);
 
-    public event Action<InventoryData, ItemInstance, Action<bool>> OnRemoveItem;
-    public void InvokeOnRemoveItem(InventoryData data, ItemInstance itemInstance, Action<bool> callback) => OnRemoveItem?.Invoke(data, itemInstance, callback);
+    public event Action<InventoryData, ItemInstance, Action<bool>> OnRemoveItemToInventory;
+    public void InvokeOnRemoveItemForInventory(InventoryData data, ItemInstance itemInstance, Action<bool> callback) => OnRemoveItemToInventory?.Invoke(data, itemInstance, callback);
 
-    public event Action<InventoryData, Vector2Int, Action<ItemInstance>> OnGetItemForPosition;
-    public void InvokeOnGetItemForPosition(InventoryData inventory, Vector2Int value, Action<ItemInstance> callback) => OnGetItemForPosition?.Invoke(inventory, value, callback);
+    public event Action<InventoryData, Vector2Int, Action<ItemInstance>> OnGetItemForPositionToInventory;
+    public void InvokeOnGetItemForPositionToInventory(InventoryData inventory, Vector2Int value, Action<ItemInstance> callback) => OnGetItemForPositionToInventory?.Invoke(inventory, value, callback);
 
 
-    public event Action<ItemInstance, InventoryData, bool> OnStartDrag;
-    public void InvokeOnStartDrag(ItemInstance item, InventoryData inventory, bool isCopyItem) => OnStartDrag?.Invoke(item, inventory, isCopyItem);
+    public event Action<ItemInstance, IItemSource, bool> OnStartDrag;
+    public void InvokeOnStartDrag(ItemInstance item, IItemSource inventory, bool isCopyItem) => OnStartDrag?.Invoke(item, inventory, isCopyItem);
     
-    public event Action<InventoryData, Vector2Int> OnEndDrag;
-    public void InvokeOnEndDrag(InventoryData inventory, Vector2Int targetCell) => OnEndDrag?.Invoke(inventory, targetCell);
+    public event Action<IItemSource> OnEndDrag;
+    public void InvokeOnEndDrag(IItemSource inventory) => OnEndDrag?.Invoke(inventory);
 
     public event Action OnCancelDrag;
     public void InvokeOnCancelDrag() => OnCancelDrag?.Invoke();
@@ -62,9 +62,12 @@ public class InventoryActions
 
     //EQUIPMENT System
 
-    public event Action<EquipmentType, ItemInstance> OnDropItemToSlot;
-    public void InvokeOnDropItemToSlot(EquipmentType slotType, ItemInstance item) => OnDropItemToSlot?.Invoke(slotType, item);
+    public event Action<EquipmentData, ItemInstance> OnDropItemToEquipmentSlot;
+    public void InvokeOnDropItemToEquipmentSlot(EquipmentData inventory, ItemInstance item) => OnDropItemToEquipmentSlot?.Invoke(inventory, item);
 
-    public event Action<EquipmentType, ItemInstance> OnUpdateToSlot;
-    public void InvokeOnUpdateToSlot(EquipmentType slotType, ItemInstance item) => OnUpdateToSlot?.Invoke(slotType, item);
+    public event Action<EquipmentData, EquipmentType> OnRemoveItemToEquipmentSlot;
+    public void InvokeOnRemoveItemToEquipmentSlot(EquipmentData data, EquipmentType type) => OnRemoveItemToEquipmentSlot?.Invoke(data, type);
+
+    public event Action<EquipmentType, ItemInstance> OnUpdateToEquipmentSlot;
+    public void InvokeOnUpdateToEquipmentSlot(EquipmentType slotType, ItemInstance item) => OnUpdateToEquipmentSlot?.Invoke(slotType, item);
 }

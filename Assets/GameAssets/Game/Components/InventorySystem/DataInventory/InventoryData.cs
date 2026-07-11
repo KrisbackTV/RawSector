@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryData
+public class InventoryData : IItemSource
 {
+    private InventoryActions _inventoryActions;
+
     public ItemInstance[,] _items;
     public Dictionary<ItemInstance, Vector2Int> _itemPosition;
 
@@ -14,8 +16,10 @@ public class InventoryData
 
     public event Action<InventoryData> OnChanged;
 
-    public InventoryData(InventorySO inventorySO)
+    public InventoryData(InventorySO inventorySO, InventoryActions inventoryActions)
     {
+        _inventoryActions = inventoryActions;
+
         Width = inventorySO.width;
         Height = inventorySO.height;
 
@@ -28,5 +32,38 @@ public class InventoryData
     public void NotifyChange()
     {
         OnChanged?.Invoke(this);
+    }
+
+    public void Sourse(ItemInstance item, Action<bool> callback)
+    {
+        if (item == null)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, item, callback);
+    }
+
+    public void Receive(ItemInstance item, Action<bool> callback)
+    {
+        if (item == null)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, item, callback);
+    }
+
+    public void Remove(ItemInstance item, Action<bool> callback)
+    {
+        if (item == null)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        _inventoryActions.InvokeOnRemoveItemForInventory(this, item, callback);
     }
 }

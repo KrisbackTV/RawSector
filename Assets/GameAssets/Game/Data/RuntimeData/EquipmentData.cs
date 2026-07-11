@@ -3,18 +3,50 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class EquipmentData
+public class EquipmentData : IItemSource
 {
+    private InventoryActions _inventoryActions;
+
     private ItemInstance _primaryGun;
     private ItemInstance _secondaryGun;
     private ItemInstance _knife;
     private ItemInstance _grenade;
     private ItemInstance _armor;
     private ItemInstance _backpack;
+    
 
-    public ItemInstance GetItemForType(EquipmentType type)
+    public EquipmentData(InventoryActions inventoryActions)
     {
-        return type switch
+        _inventoryActions = inventoryActions;
+    }
+    
+    public void Sourse(ItemInstance item, Action<bool> callback)
+    {
+        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, item);
+        callback?.Invoke(true);
+    }
+
+    public void Receive(ItemInstance item, Action<bool> callback)
+    {
+        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, item);
+        callback?.Invoke(true);
+    }
+
+    public void Remove(ItemInstance item, Action<bool> callback)
+    {
+        if (item == null || item._itemData == null)
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        _inventoryActions.InvokeOnRemoveItemToEquipmentSlot(this, item._itemData.equipmentType);
+        callback?.Invoke(true);
+    }
+
+    public ItemInstance GetItemToSlot(EquipmentType slotType)
+    {
+        return slotType switch
         {
             EquipmentType.PrimaryGun => _primaryGun,
             EquipmentType.SecondaryGun => _secondaryGun,
@@ -26,7 +58,9 @@ public class EquipmentData
         };
     }
 
-    public void SetItemForType(ItemInstance item, EquipmentType type)
+
+    //Для взаимодействия с данными
+    public void SetItem(EquipmentType type, ItemInstance item)
     {
         switch (type)
         {
@@ -49,5 +83,8 @@ public class EquipmentData
                 _backpack = item;
                 break;
         }
+
+        _inventoryActions.InvokeOnUpdateToEquipmentSlot(type, item);
     }
+
 }

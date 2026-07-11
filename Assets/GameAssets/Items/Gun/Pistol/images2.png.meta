@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0f75be8d0da488c44ad23c8314f84503
+guid: bddaa2810808fc843abe0d3738883a61
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: png-transparent-copper-9mm-ammunition-metal-9mm_0
+      name: images2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 920
-        height: 800
+        width: 547
+        height: 365
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49adf486fe49c504ba9bebf2368fc7a8
-      internalID: -1072135657
+      spriteID: 7644be50d31783241944ecd08c633ada
+      internalID: -1282864485
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d29fd667b6f18d84aa5db10e868ee5e1
+    spriteID: 94a2c5eb1fb15944ea9e5f4ac82ee1f6
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      png-transparent-copper-9mm-ammunition-metal-9mm_0: -1072135657
+      images2_0: -1282864485
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

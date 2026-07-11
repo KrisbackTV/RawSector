@@ -82,14 +82,14 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                     if (!isDragging)
                     {
                         ItemInstance itemInstance = null;
-                        _inventoryActions.InvokeOnGetItemForPosition(CurrentInventoryData, TryGetCellFromMouse(mousePos), (item) => itemInstance = item);
+                        _inventoryActions.InvokeOnGetItemForPositionToInventory(CurrentInventoryData, TryGetCellFromMouse(mousePos), (item) => itemInstance = item);
 
                         if (itemInstance != null) _inventoryActions.InvokeOnStartDrag(itemInstance, CurrentInventoryData, false);
                     }
                     else
                     {
                         Vector2Int position = TryGetCellFromMouse(mousePos);
-                        _inventoryActions.InvokeOnEndDrag(CurrentInventoryData, position);
+                        _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
                     }
                 });
                 
@@ -104,7 +104,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                     if (!isDragging)
                     {
                         ItemInstance itemInstance = null;
-                        _inventoryActions.InvokeOnGetItemForPosition(CurrentInventoryData, TryGetCellFromMouse(mousePos), (item) => itemInstance = item);
+                        _inventoryActions.InvokeOnGetItemForPositionToInventory(CurrentInventoryData, TryGetCellFromMouse(mousePos), (item) => itemInstance = item);
 
                         if (itemInstance != null)
                         {
@@ -132,7 +132,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
 
                         ItemInstance itemInstance = null;
                         Vector2Int itemPos = TryGetCellFromMouse(mousePos);
-                        _inventoryActions.InvokeOnGetItemForPosition(CurrentInventoryData, itemPos, (item) => itemInstance = item);
+                        _inventoryActions.InvokeOnGetItemForPositionToInventory(CurrentInventoryData, itemPos, (item) => itemInstance = item);
 
 
                         if (itemInstance != null)
@@ -143,7 +143,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                                 {
                                     ItemInstance singleItem = new ItemInstance(draggedItem._itemData, 1);
                                 
-                                    _inventoryActions.InvokeOnTryPlaceItem(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
+                                    _inventoryActions.InvokeOnTryPlaceItemToInventory(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
                                     {
                                         if (callback)
                                         {
@@ -160,7 +160,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                                 }
                                 else
                                 {
-                                    _inventoryActions.InvokeOnEndDrag(CurrentInventoryData, itemPos);
+                                    _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
                                 }
                             }
                         }
@@ -170,7 +170,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                             {
                                 ItemInstance singleItem = new ItemInstance(draggedItem._itemData, 1);
 
-                                _inventoryActions.InvokeOnTryPlaceItem(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
+                                _inventoryActions.InvokeOnTryPlaceItemToInventory(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
                                 {
                                     if (callback)
                                     {
@@ -183,7 +183,7 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                             }
                             else
                             {
-                                _inventoryActions.InvokeOnEndDrag(CurrentInventoryData, itemPos);
+                                _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
                             }
                         }
                     }
@@ -222,12 +222,12 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
         Vector2Int itemPos = TryGetCellFromMouse(mousePos);
 
         ItemInstance itemInstance = null;
-        _inventoryActions.InvokeOnGetItemForPosition(CurrentInventoryData, itemPos, (callback) =>
+        _inventoryActions.InvokeOnGetItemForPositionToInventory(CurrentInventoryData, itemPos, (callback) =>
         {
             if (callback != null)
             {
                 itemInstance = callback;
-                _inventoryActions.InvokeOnRemoveItem(CurrentInventoryData, itemInstance, null);
+                _inventoryActions.InvokeOnRemoveItemForInventory(CurrentInventoryData, itemInstance, null);
             }
         });
 

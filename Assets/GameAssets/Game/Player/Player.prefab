@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
   _bobSpeed: 8
-  _bobXAmount: 0.03
-  _bobYAmount: 0.06
+  _bobXAmount: 0.02
+  _bobYAmount: 0.05
   _resetSmoothSpeed: 20
 --- !u!1 &2841236634307470476
 GameObject:

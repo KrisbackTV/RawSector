@@ -17,10 +17,10 @@ public class InventoryService : IStartable
     {
         if (_inventoryActions != null)
         {
-            _inventoryActions.OnGetItemForPosition += GetItemForPosition;
-            _inventoryActions.OnTryAddToFreeSlot += TryAddItemToFreeSlot;
-            _inventoryActions.OnTryPlaceItem += OnTryPlaceItem;
-            _inventoryActions.OnRemoveItem += RemoveItem;
+            _inventoryActions.OnGetItemForPositionToInventory += GetItemForPosition;
+            _inventoryActions.OnTryAddToFreeSlotToInventory += TryAddItemToFreeSlot;
+            _inventoryActions.OnTryPlaceItemToInventory += OnTryPlaceItem;
+            _inventoryActions.OnRemoveItemToInventory += RemoveItem;
         }
     }
 

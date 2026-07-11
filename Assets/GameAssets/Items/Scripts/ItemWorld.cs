@@ -42,7 +42,7 @@ public class ItemWorld : MonoBehaviour, IInteractable
 
         if (playerData != null)
         {
-            _inventoryActions.InvokeOnTryAddToFreeSlot( playerData._playerInventory, _itemInstance, (IsSuccess) =>
+            _inventoryActions.InvokeOnTryAddToFreeSlotToInventory( playerData._playerInventory, _itemInstance, (IsSuccess) =>
             {
                 if (IsSuccess)
                 {
