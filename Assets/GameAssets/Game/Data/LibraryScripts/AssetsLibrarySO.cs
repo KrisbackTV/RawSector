@@ -21,6 +21,8 @@ public class AssetsLibrarySO : ScriptableObject
     public GameObject UIGridItemSlotPrefab;
     public Sprite backgroundImagePrefab;
     public GameObject UIGhostItemViewPrefab;
+    public GameObject _interactMenuPrefab;
+    public GameObject _interactButtonPrefab;
 
     public int cellSize = 100;
     public float _picUpDistance = 1.5f;
@@ -48,8 +50,6 @@ public class AssetsLibrarySO : ScriptableObject
 
     //временно
     public float _sensivity = 10f;
-    public ItemData cube;
-
 
     public GameState GetGameStateForType(GameCoreState state)
     {

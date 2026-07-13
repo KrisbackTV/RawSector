@@ -25,23 +25,21 @@ public class DragAndDropService : IStartable
     }
 
     public bool IsDragging { get; private set; } = false;
-    public ItemInstance _draggedItem { get; private set; }
-    public IItemSource _sourceInventory { get; private set; }
+    public DragContextItem _draggedItemContext { get; private set; }
 
 
-    private void GetCurrentDragItem(Action<ItemInstance> callback)
+    private void GetCurrentDragItem(Action<DragContextItem> callback)
     {
-        callback?.Invoke(_draggedItem);
+        callback?.Invoke(_draggedItemContext);
     }
 
     public void StartDrag(ItemInstance item, IItemSource inventory, bool isCopyItem)
     {
         if (item == null || inventory == null) return;
 
-        _draggedItem = item;
-        _sourceInventory = inventory;
+        _draggedItemContext = new DragContextItem(item, inventory);
         IsDragging = true;
-        _inventoryActions.InvokeOnShowGhostItem(_draggedItem);
+        _inventoryActions.InvokeOnShowGhostItem(_draggedItemContext._itemInstance);
 
         if (!isCopyItem)
         {
@@ -51,11 +49,9 @@ public class DragAndDropService : IStartable
 
     public void EndDrag(IItemSource inventoryData)
     {
-        if (!IsDragging || _draggedItem == null || inventoryData == null) return;
+        if (!IsDragging || _draggedItemContext == null || inventoryData == null) return;
 
-        Debug.Log("enddrag");
-
-        inventoryData.Receive(_draggedItem, (isSuccess) =>
+        inventoryData.Receive(_draggedItemContext, (isSuccess) =>
          {
              if (isSuccess)
              {
@@ -63,7 +59,15 @@ public class DragAndDropService : IStartable
              }
              else
              {
-                 _inventoryActions.InvokeOnDropItemInWorld(_draggedItem);
+                 _draggedItemContext._inventoryOwner.Sourse(_draggedItemContext, (callback) => 
+                 {
+                     if (!callback)
+                     {
+                         FinishDragging();
+                         return;
+                     }
+                 });
+                 _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance);
                  FinishDragging();
              }
          });
@@ -73,7 +77,7 @@ public class DragAndDropService : IStartable
     {
         if (!IsDragging) return;
 
-        _sourceInventory.Receive(_draggedItem, (isSuccess) =>
+        _draggedItemContext._inventoryOwner.Receive(_draggedItemContext, (isSuccess) =>
         {
             if (isSuccess)
             {
@@ -82,7 +86,7 @@ public class DragAndDropService : IStartable
             }
             else
             {
-                _inventoryActions.InvokeOnDropItemInWorld(_draggedItem);
+                _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance);
                 FinishDragging();
                 return;
             }
@@ -93,8 +97,7 @@ public class DragAndDropService : IStartable
 
     private void FinishDragging()
     {
-        _draggedItem = null;
-        _sourceInventory = null;
+        _draggedItemContext = null;
         IsDragging = false;
         _inventoryActions.InvokeOnHideGhostItem();
     }

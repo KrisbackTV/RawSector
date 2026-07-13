@@ -7,7 +7,7 @@ public class ItemView : MonoBehaviour
     [SerializeField] private Image _itemImage;
     [SerializeField] private TextMeshProUGUI _itemCount;
 
-    public void SetView(Sprite sprite, int count, Color color)
+    public void SetView(Sprite sprite, int count)
     {
         if (sprite != null && _itemImage != null)
         {
@@ -17,12 +17,6 @@ public class ItemView : MonoBehaviour
         if (_itemCount != null)
         {
             SetCount(count);
-        }
-
-
-        if (sprite == null && color != null && _itemImage != null)
-        {
-            SetColor(color);
         }
     }
 

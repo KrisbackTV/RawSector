@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmmoItemData
   id: 1111
   itemName: 9mm_Base
+  type: 1
   width: 1
   height: 1
-  type: 1
+  IsEquipped: 0
+  equipmentType: 0
   maxCount: 30
-  color: {r: 0.13181198, g: 0.7056604, b: 0.4875324, a: 1}
+  _itemActionType: 4
   ItemSprite: {fileID: 2131947119, guid: 83b1de5fbe4cf214e948ac91ae131e27, type: 3}
   worldPrefab: {fileID: 7203973249074550176, guid: 9933c354f8f3a7e4ebff0e4ce1ce1526, type: 3}
   equipmentPrefab: {fileID: 0}

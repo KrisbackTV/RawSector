@@ -89,18 +89,24 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
                     else
                     {
                         Vector2Int position = TryGetCellFromMouse(mousePos);
+                        Debug.Log($"mousepo sition: {position}");
+
+                        DragContextItem dragContextItem = null;
+                        _inventoryActions.InvokeOnGetCurrentDragItem((callback) => dragContextItem = callback);
+                        dragContextItem._posInventoryGrid = position;
+                        Debug.Log($"dragItem pos for inventory: {dragContextItem._posInventoryGrid}");
+
                         _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
+                        Debug.Log($"the end");
                     }
                 });
-                
                 break;
-
             case { button: PointerEventData.InputButton.Right }:
 
                 _inventoryActions.InvokeOnIsDragging((isDragging) =>
                 {
                     Vector2 mousePos = Mouse.current.position.ReadValue();
-
+                    
                     if (!isDragging)
                     {
                         ItemInstance itemInstance = null;
@@ -108,87 +114,14 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
 
                         if (itemInstance != null)
                         {
-                            if (itemInstance._count > 1)
-                            {
-                                int countDrag = itemInstance._count / 2;
-                                
-                                ItemInstance copyItem = new ItemInstance(itemInstance._itemData, countDrag);
-                                itemInstance._count -= countDrag;
-
-                                _inventoryActions.InvokeOnStartDrag(copyItem, CurrentInventoryData, true);
-                                CurrentInventoryData.NotifyChange();
-                                return;
-                            }
-                          
-                            _inventoryActions.InvokeOnStartDrag(itemInstance, CurrentInventoryData, false);
-
+                            _inventoryActions.InvokeOnOpenInteractMenu(itemInstance, mousePos);
                         }
                     }
                     else
                     {
-                        ItemInstance draggedItem = null;
-                        _inventoryActions.InvokeOnGetCurrentDragItem((item) => draggedItem = item);
-                        if (draggedItem == null) return;
 
-                        ItemInstance itemInstance = null;
-                        Vector2Int itemPos = TryGetCellFromMouse(mousePos);
-                        _inventoryActions.InvokeOnGetItemForPositionToInventory(CurrentInventoryData, itemPos, (item) => itemInstance = item);
-
-
-                        if (itemInstance != null)
-                        {
-                            if (draggedItem._itemData.id == itemInstance._itemData.id)
-                            {
-                                if (draggedItem._count > 1)
-                                {
-                                    ItemInstance singleItem = new ItemInstance(draggedItem._itemData, 1);
-                                
-                                    _inventoryActions.InvokeOnTryPlaceItemToInventory(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
-                                    {
-                                        if (callback)
-                                        {
-                                            draggedItem._count--;
-                                        
-                                            _inventoryActions.InvokeOnShowGhostItem(draggedItem);
-                                            CurrentInventoryData.NotifyChange();
-                                        }
-                                        else
-                                        {
-                                            Debug.Log("callback == false");
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (draggedItem._count > 1)
-                            {
-                                ItemInstance singleItem = new ItemInstance(draggedItem._itemData, 1);
-
-                                _inventoryActions.InvokeOnTryPlaceItemToInventory(CurrentInventoryData, singleItem, itemPos.x, itemPos.y, (callback) =>
-                                {
-                                    if (callback)
-                                    {
-                                        draggedItem._count--;
-
-                                        _inventoryActions.InvokeOnShowGhostItem(draggedItem);
-                                        CurrentInventoryData.NotifyChange();
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                _inventoryActions.InvokeOnEndDrag(CurrentInventoryData);
-                            }
-                        }
                     }
                 });
-
                 break;
         }
     }

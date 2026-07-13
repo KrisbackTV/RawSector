@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class InventoryActions
 {
-    //INVENTORY System
-
-    //Logic Action
+    //InventoryService
     public event Action<InventoryData, ItemInstance, Action<bool>> OnTryAddToFreeSlotToInventory;
     public void InvokeOnTryAddToFreeSlotToInventory(InventoryData data, ItemInstance itemInstance, Action<bool> callback) => OnTryAddToFreeSlotToInventory?.Invoke(data, itemInstance, callback);
 
@@ -18,7 +16,7 @@ public class InventoryActions
     public event Action<InventoryData, Vector2Int, Action<ItemInstance>> OnGetItemForPositionToInventory;
     public void InvokeOnGetItemForPositionToInventory(InventoryData inventory, Vector2Int value, Action<ItemInstance> callback) => OnGetItemForPositionToInventory?.Invoke(inventory, value, callback);
 
-
+    //DragAndDropService
     public event Action<ItemInstance, IItemSource, bool> OnStartDrag;
     public void InvokeOnStartDrag(ItemInstance item, IItemSource inventory, bool isCopyItem) => OnStartDrag?.Invoke(item, inventory, isCopyItem);
     
@@ -37,31 +35,16 @@ public class InventoryActions
     public event Action OnHideGhostItem;
     public void InvokeOnHideGhostItem() => OnHideGhostItem?.Invoke();
 
-    public event Action<Action<ItemInstance>> OnGetCurrentDragItem;
-    public void InvokeOnGetCurrentDragItem(Action<ItemInstance> callback) => OnGetCurrentDragItem?.Invoke(callback);
+    public event Action<Action<DragContextItem>> OnGetCurrentDragItem;
+    public void InvokeOnGetCurrentDragItem(Action<DragContextItem> callback) => OnGetCurrentDragItem?.Invoke(callback);
 
 
+    //FABRICService
     public event Action<ItemInstance> OnDropItemInWorld;
     public void InvokeOnDropItemInWorld(ItemInstance item) => OnDropItemInWorld?.Invoke(item);
 
 
-
-
-    //UI Action
-
-
-
-
-
-
-
-
-
-
-
-
-    //EQUIPMENT System
-
+    //EquipmentService
     public event Action<EquipmentData, ItemInstance> OnDropItemToEquipmentSlot;
     public void InvokeOnDropItemToEquipmentSlot(EquipmentData inventory, ItemInstance item) => OnDropItemToEquipmentSlot?.Invoke(inventory, item);
 
@@ -70,4 +53,15 @@ public class InventoryActions
 
     public event Action<EquipmentType, ItemInstance> OnUpdateToEquipmentSlot;
     public void InvokeOnUpdateToEquipmentSlot(EquipmentType slotType, ItemInstance item) => OnUpdateToEquipmentSlot?.Invoke(slotType, item);
+
+    public event Action<EquipmentType, Action<ItemInstance>> OnGetItemForEquipSlot;
+    public void InvokeOnGetItemForEquipSlot(EquipmentType type, Action<ItemInstance> callback) => OnGetItemForEquipSlot?.Invoke(type, callback);
+
+
+    //InteractMenuService
+    public event Action<ItemInstance, Vector2> OnOpenInteractMenu;
+    public void InvokeOnOpenInteractMenu(ItemInstance item, Vector2 mousePos) => OnOpenInteractMenu?.Invoke(item, mousePos);
+
+    public event Action OnCloseInteractMenu;
+    public void InvokeOnCloseInteractMenu() => OnCloseInteractMenu?.Invoke();
 }

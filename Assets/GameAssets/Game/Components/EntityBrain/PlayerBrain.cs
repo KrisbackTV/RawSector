@@ -7,16 +7,12 @@ public class PlayerBrain : MonoBehaviour
     private AssetsLibrarySO _assetsLibrarySO;
     private IInputProvider _inputProvider;
     private PlayerData _playerData;
-    private InventoryService _inventoryService;
-    private IObjectResolver _objectResolver;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, IInputProvider inputProvider,PlayerData playerData, InventoryService inventoryService, IObjectResolver objectResolver)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, IInputProvider inputProvider,PlayerData playerData)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inputProvider = inputProvider;
         _playerData = playerData;
-        _inventoryService = inventoryService;
-        _objectResolver = objectResolver;
 
         Subscribe();
     }
@@ -35,17 +31,6 @@ public class PlayerBrain : MonoBehaviour
         _sprintSystem = GetComponent<SprintSystem>();
     }
 
-    //private void Start()
-    //{
-    //    AddItemToInventory();
-    //}
-
-    //[ContextMenu("Refresh Grid Manually")]
-    //public void AddItemToInventory()
-    //{
-    //    ItemInstance item = new ItemInstance(_assetsLibrarySO.cube);
-    //    _inventoryService.TryAddItemToFreeSlot(_playerData._playerInventory, item);
-    //}
 
     private void OnEnable()
     {

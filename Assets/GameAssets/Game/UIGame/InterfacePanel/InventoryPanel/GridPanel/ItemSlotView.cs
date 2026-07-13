@@ -25,7 +25,7 @@ public class ItemSlotView : MonoBehaviour
         SetPosition(posX, posY);
         SetSize(sizeX, sizeY);
 
-        _itemView.SetView(itemInstance._itemSprite, itemInstance._count, itemInstance._itemColor);
+        _itemView.SetView(itemInstance._itemSprite, itemInstance._count);
     }
 
     private void SetPosition(float x, float y)

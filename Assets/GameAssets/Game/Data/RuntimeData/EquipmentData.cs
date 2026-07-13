@@ -18,17 +18,21 @@ public class EquipmentData : IItemSource
     public EquipmentData(InventoryActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
+        if (_inventoryActions != null)
+        {
+            _inventoryActions.OnGetItemForEquipSlot += GetItemForEquipSlot;
+        }
     }
     
-    public void Sourse(ItemInstance item, Action<bool> callback)
+    public void Sourse(DragContextItem dragContextItem, Action<bool> callback)
     {
-        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, item);
+        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
         callback?.Invoke(true);
     }
 
-    public void Receive(ItemInstance item, Action<bool> callback)
+    public void Receive(DragContextItem dragContextItem, Action<bool> callback)
     {
-        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, item);
+        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
         callback?.Invoke(true);
     }
 
@@ -42,6 +46,11 @@ public class EquipmentData : IItemSource
 
         _inventoryActions.InvokeOnRemoveItemToEquipmentSlot(this, item._itemData.equipmentType);
         callback?.Invoke(true);
+    }
+
+    public void GetItemForEquipSlot(EquipmentType type, Action<ItemInstance> callback)
+    {
+        callback?.Invoke(GetItemToSlot(type));
     }
 
     public ItemInstance GetItemToSlot(EquipmentType slotType)

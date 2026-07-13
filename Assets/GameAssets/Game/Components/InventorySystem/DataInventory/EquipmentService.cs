@@ -9,7 +9,6 @@ public class EquipmentService
 {
     private AssetsLibrarySO _assetsLibrarySO;
     private InventoryActions _actionList;
-    private PlayerData _playerData;
     [Inject]
     public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions uIActionList, PlayerData playerData)
     {
@@ -27,7 +26,7 @@ public class EquipmentService
     {
         if (data == null || item == null)
         {
-            Debug.Log("playerData/itemInstance отсутствует");
+            Debug.Log("data/itemInstance отсутствует");
             return;
         }
 

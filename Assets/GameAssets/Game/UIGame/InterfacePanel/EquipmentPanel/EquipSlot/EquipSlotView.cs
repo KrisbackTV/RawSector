@@ -68,7 +68,6 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
         }
         else
         {
-            Debug.Log("itemInstance == null");
             if (_slotImage != null)
             {
                 _slotImage.sprite = null;
@@ -102,11 +101,17 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
-                        _inventoryActions.InvokeOnGetCurrentDragItem((draggItem) =>
+                        _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (item) =>
                         {
-                            if (draggItem._itemData.equipmentType == _slotType)
+                            if (item == null)
                             {
-                                _inventoryActions.InvokeOnEndDrag(_playerData._equipmentSO);
+                                _inventoryActions.InvokeOnGetCurrentDragItem((draggItem) =>
+                                {
+                                    if (draggItem._itemInstance._itemData.equipmentType == _slotType)
+                                    {
+                                        _inventoryActions.InvokeOnEndDrag(_playerData._equipmentSO);
+                                    }
+                                });
                             }
                         });
                     }
@@ -114,17 +119,6 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                 break;
 
             case { button: PointerEventData.InputButton.Right }:
-                _inventoryActions.InvokeOnIsDragging((isDragging) =>
-                {
-                    if (!isDragging)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
-                });
                 break;
         }
     }

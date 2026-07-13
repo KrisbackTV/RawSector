@@ -20,6 +20,8 @@ MonoBehaviour:
   UIGridItemSlotPrefab: {fileID: 8587278029727377582, guid: caee95f47a41b374fb334a6ba481abd8, type: 3}
   backgroundImagePrefab: {fileID: -1234935118, guid: 15bf2c97a734614429995c28f0b5e2b7, type: 3}
   UIGhostItemViewPrefab: {fileID: 3233380066178570935, guid: 66047fc17bd88904ab3c378e9dc2ab5c, type: 3}
+  _interactMenuPrefab: {fileID: 8986283052814921259, guid: af617f978f886f7419b53f382be75fd8, type: 3}
+  _interactButtonPrefab: {fileID: 6812454188163170023, guid: 464054260766857479f2f260b2d810a1, type: 3}
   cellSize: 64
   _picUpDistance: 1.5
   _dropDistance: 1.5
@@ -30,4 +32,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3f93adf8d5559f40b4a2acc825a7c93, type: 2}
   - {fileID: 11400000, guid: 926421bca0c2b9746ad9108cc0389a82, type: 2}
   _sensivity: 120
-  cube: {fileID: 11400000, guid: 23c4cea6b41b37447a7c6e4c3a96dca7, type: 2}

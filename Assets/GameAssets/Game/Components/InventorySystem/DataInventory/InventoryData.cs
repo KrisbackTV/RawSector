@@ -34,26 +34,26 @@ public class InventoryData : IItemSource
         OnChanged?.Invoke(this);
     }
 
-    public void Sourse(ItemInstance item, Action<bool> callback)
+    public void Sourse(DragContextItem contextItem, Action<bool> callback)
     {
-        if (item == null)
+        if (contextItem == null)
         {
             callback?.Invoke(false);
             return;
         }
 
-        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, item, callback);
+        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, contextItem._itemInstance, callback);
     }
 
-    public void Receive(ItemInstance item, Action<bool> callback)
+    public void Receive(DragContextItem contextItem, Action<bool> callback)
     {
-        if (item == null)
+        if (contextItem == null)
         {
             callback?.Invoke(false);
             return;
         }
 
-        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, item, callback);
+        _inventoryActions.InvokeOnTryPlaceItemToInventory(this, contextItem._itemInstance, contextItem._posInventoryGrid.x, contextItem._posInventoryGrid.y, callback);
     }
 
     public void Remove(ItemInstance item, Action<bool> callback)

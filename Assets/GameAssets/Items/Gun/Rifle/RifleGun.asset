@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GunItemData
   id: 4
   itemName: RifleGun
+  type: 1
   width: 4
   height: 2
-  type: 1
   IsEquipped: 1
   equipmentType: 1
   maxCount: 1
-  color: {r: 0.38521358, g: 0.3396867, b: 0.645283, a: 1}
+  _itemActionType: 6
   ItemSprite: {fileID: -73693797, guid: 0809a88af4797684ba35ad59d1bd072a, type: 3}
   worldPrefab: {fileID: 2566009654982961982, guid: f7ec9558d701004478c881c750a8a163, type: 3}
   equipmentPrefab: {fileID: 8712643593242644624, guid: d8b5c910c0018f049bec96c72807801c, type: 3}

@@ -11,10 +11,6 @@ public class ItemInstance
     public Sprite _itemSprite => _itemData.ItemSprite;
 
 
-
-    public Color _itemColor => _itemData.color;   // - для ТЕСТА
-
-
     public int _count;
     
     public ItemInstance(ItemData item, int count = 1)
