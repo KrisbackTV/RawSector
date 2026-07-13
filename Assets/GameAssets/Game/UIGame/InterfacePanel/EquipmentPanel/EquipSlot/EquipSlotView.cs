@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using VContainer;
 
@@ -97,7 +98,7 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                 {
                     if (!isDragging)
                     {
-                        _inventoryActions.InvokeOnStartDrag(_playerData._equipmentSO.GetItemToSlot(_slotType), _playerData._equipmentSO, false);
+                        _inventoryActions.InvokeOnStartDrag(_playerData._equipmentData.GetItemToSlot(_slotType), _playerData._equipmentData, false);
                     }
                     else
                     {
@@ -109,7 +110,7 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                                 {
                                     if (draggItem._itemInstance._itemData.equipmentType == _slotType)
                                     {
-                                        _inventoryActions.InvokeOnEndDrag(_playerData._equipmentSO);
+                                        _inventoryActions.InvokeOnEndDrag(_playerData._equipmentData);
                                     }
                                 });
                             }
@@ -119,6 +120,26 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
                 break;
 
             case { button: PointerEventData.InputButton.Right }:
+                _inventoryActions.InvokeOnIsDragging((isDragging) =>
+                {
+                    Vector2 mousePos = Mouse.current.position.ReadValue();
+
+                    if (!isDragging)
+                    {
+                        ItemInstance itemInstance = null;
+                        _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (callback) => itemInstance = callback);
+
+                        if (itemInstance != null)
+                        {
+                            DragContextItem contextItem = new DragContextItem(itemInstance, _playerData._equipmentData);
+                            _inventoryActions.InvokeOnOpenInteractMenu(contextItem, mousePos);
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                });
                 break;
         }
     }

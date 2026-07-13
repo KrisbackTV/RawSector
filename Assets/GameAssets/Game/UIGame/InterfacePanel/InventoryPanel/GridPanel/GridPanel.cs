@@ -114,7 +114,8 @@ public class GridPanel : MonoBehaviour, IPointerDownHandler, IDropItemInWorld
 
                         if (itemInstance != null)
                         {
-                            _inventoryActions.InvokeOnOpenInteractMenu(itemInstance, mousePos);
+                            DragContextItem contextItem = new DragContextItem(itemInstance, CurrentInventoryData);
+                            _inventoryActions.InvokeOnOpenInteractMenu(contextItem, mousePos);
                         }
                     }
                     else

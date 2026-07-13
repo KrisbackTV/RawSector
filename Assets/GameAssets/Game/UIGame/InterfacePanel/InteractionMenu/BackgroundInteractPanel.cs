@@ -9,7 +9,6 @@ public class BackgroundInteractPanel : MonoBehaviour, IPointerDownHandler
     public void Construct(InventoryActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
-        Debug.Log("ИНЖЕКТ");
     }
 
 

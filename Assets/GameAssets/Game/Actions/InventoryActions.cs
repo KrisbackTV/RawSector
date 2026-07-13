@@ -19,7 +19,7 @@ public class InventoryActions
     //DragAndDropService
     public event Action<ItemInstance, IItemSource, bool> OnStartDrag;
     public void InvokeOnStartDrag(ItemInstance item, IItemSource inventory, bool isCopyItem) => OnStartDrag?.Invoke(item, inventory, isCopyItem);
-    
+
     public event Action<IItemSource> OnEndDrag;
     public void InvokeOnEndDrag(IItemSource inventory) => OnEndDrag?.Invoke(inventory);
 
@@ -41,11 +41,16 @@ public class InventoryActions
 
     //FABRICService
     public event Action<ItemInstance> OnDropItemInWorld;
-    public void InvokeOnDropItemInWorld(ItemInstance item) => OnDropItemInWorld?.Invoke(item);
+    public void InvokeOnDropItemInWorld(ItemInstance item)
+    {
+        OnDropItemInWorld?.Invoke(item);
+        Debug.Log($"предмет: {item._itemName}, выкинули в мир");
+    }
 
 
-    //EquipmentService
-    public event Action<EquipmentData, ItemInstance> OnDropItemToEquipmentSlot;
+
+//EquipmentService
+public event Action<EquipmentData, ItemInstance> OnDropItemToEquipmentSlot;
     public void InvokeOnDropItemToEquipmentSlot(EquipmentData inventory, ItemInstance item) => OnDropItemToEquipmentSlot?.Invoke(inventory, item);
 
     public event Action<EquipmentData, EquipmentType> OnRemoveItemToEquipmentSlot;
@@ -59,8 +64,8 @@ public class InventoryActions
 
 
     //InteractMenuService
-    public event Action<ItemInstance, Vector2> OnOpenInteractMenu;
-    public void InvokeOnOpenInteractMenu(ItemInstance item, Vector2 mousePos) => OnOpenInteractMenu?.Invoke(item, mousePos);
+    public event Action<DragContextItem, Vector2> OnOpenInteractMenu;
+    public void InvokeOnOpenInteractMenu(DragContextItem contextItem, Vector2 mousePos) => OnOpenInteractMenu?.Invoke(contextItem, mousePos);
 
     public event Action OnCloseInteractMenu;
     public void InvokeOnCloseInteractMenu() => OnCloseInteractMenu?.Invoke();

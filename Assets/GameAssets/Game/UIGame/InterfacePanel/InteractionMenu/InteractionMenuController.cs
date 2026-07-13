@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,33 +44,52 @@ public class InteractionMenuController : MonoBehaviour
     }
 
 
-    private void OpenInteractMenu(ItemInstance itemInstance, Vector2 mousePos)
+    private void OpenInteractMenu(DragContextItem contextItem, Vector2 mousePos)
     {
-        if(_interactMenu != null || itemInstance == null) return;
+        if (_interactMenu != null || contextItem == null || contextItem._itemInstance == null) return;
 
         _interactMenu = _objectResolver.Instantiate(_prefabMenu, _canvasTransform);
-        _interactMenu.transform.localPosition = mousePos;
 
-        ItemActionType actionType = itemInstance._itemData.ItemActionType;
+        RectTransform menuRect = _interactMenu.GetComponent<RectTransform>();
+        RectTransform canvasRect = _canvasTransform.GetComponent<RectTransform>();
+
+        if (menuRect != null && canvasRect != null)
+        {
+            // Пересчитываем позицию мыши (Screen Point) в локальные координаты Canvas
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    canvasRect,
+                    mousePos,
+                    null, // null подходит для Screen Space - Overlay. Если камера — передай камеру UI
+                    out Vector2 localPoint))
+            {
+                // Устанавливаем точную позицию
+                menuRect.anchoredPosition = localPoint;
+            }
+        }
+
+        ItemActionType actionType = contextItem._itemInstance._itemData.ItemActionType;
 
         if (actionType.HasFlag(ItemActionType.Use))
         {
-            AddButton("Использовать");
+            AddButton("Использовать", null);
         }
         if (actionType.HasFlag(ItemActionType.Modified))
         {
-            AddButton("Осмотреть");
+            AddButton("Осмотреть", null);
         }
         if (actionType.HasFlag(ItemActionType.Discard))
         {
-            AddButton("Выбросить");
+            AddButton("Выбросить", () =>
+            {
+                _inventoryActions.InvokeOnDropItemInWorld(contextItem._itemInstance);
+                contextItem._inventoryOwner.Remove(contextItem._itemInstance, null);
+            });
         }
-
 
         if (_backgroundInteractPanel != null) _backgroundInteractPanel.Open();
     }
 
-    private void AddButton(string name)
+    private void AddButton(string name, Action callback)
     {
         GameObject buttonObj = _objectResolver.Instantiate(_prefabButton, _interactMenu.transform);
         TextMeshProUGUI text = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
@@ -84,6 +104,8 @@ public class InteractionMenuController : MonoBehaviour
         {
             button.onClick.AddListener(() =>
             {
+                callback?.Invoke();
+
                 CloseInteractMenu();
             });
         }
