@@ -4,9 +4,9 @@ using VContainer;
 
 public class BackgroundInteractPanel : MonoBehaviour, IPointerDownHandler
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
     [Inject]
-    public void Construct(InventoryActions inventoryActions)
+    public void Construct(GameActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
     }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185e10bafcb5ac646b605794576fce2d, type: 3}
+  m_Name: PlayerConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerConfigSo
+  _stanceStats:
+    _standHeight: 1.9
+    _crouchHeight: 1.4
+    _proneHeight: 0.9
+  _movementStats:
+    _sprintSpeed: 7
+    _standSpeed: 5
+    _crouchSpeed: 3
+    _proneSpeed: 3
+    _jumpForce: 2
+  _healthStats:
+    _maxHealth: 100
+  _staminaStats:
+    _maxStamina: 100
+    _regenRate: 10
+    _regenDelay: 5
+    _sprintCost: 5

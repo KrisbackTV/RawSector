@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944032ae66431b944a84aa45004a561d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemWorld
-  _itemdataSO: {fileID: 11400000, guid: a6526071d67c84d4ea157ecf0099903e, type: 2}
+  _itemData: {fileID: 11400000, guid: 579e91bd5394ee8428b450189ffdc92c, type: 2}
   _countOverride: 1
 --- !u!1001 &5676875364906732713
 PrefabInstance:

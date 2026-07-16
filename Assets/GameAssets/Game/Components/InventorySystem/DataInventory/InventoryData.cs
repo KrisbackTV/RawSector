@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryData : IItemSource
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
 
     public ItemInstance[,] _items;
     public Dictionary<ItemInstance, Vector2Int> _itemPosition;
@@ -16,7 +16,7 @@ public class InventoryData : IItemSource
 
     public event Action<InventoryData> OnChanged;
 
-    public InventoryData(InventorySO inventorySO, InventoryActions inventoryActions)
+    public InventoryData(InventorySO inventorySO, GameActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
 

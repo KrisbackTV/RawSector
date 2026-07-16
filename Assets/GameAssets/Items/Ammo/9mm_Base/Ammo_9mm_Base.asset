@@ -9,23 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 795eb1cf2925bcb468a52ebaa63e7ba3, type: 3}
-  m_Name: 9mm Base
-  m_EditorClassIdentifier: Assembly-CSharp::AmmoItemData
-  id: 1111
-  itemName: 9mm_Base
+  m_Script: {fileID: 11500000, guid: 0e5438ebcf542ba42b0dc0da51ae6673, type: 3}
+  m_Name: Ammo_9mm_Base
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  id: 5555
+  itemName: Ammo_9mm
   type: 1
   width: 1
   height: 1
+  maxCount: 30
   IsEquipped: 0
   equipmentType: 0
-  maxCount: 30
   _itemActionType: 4
   ItemSprite: {fileID: 2131947119, guid: 83b1de5fbe4cf214e948ac91ae131e27, type: 3}
   worldPrefab: {fileID: 7203973249074550176, guid: 9933c354f8f3a7e4ebff0e4ce1ce1526, type: 3}
   equipmentPrefab: {fileID: 0}
-  _ammoType: 0
-  _ammoCaliber: 0
-  _damage: 12
-  _armorPenetration: 0
-  _bleedChance: 0
+  _isWeapon: 0
+  _gunStats:
+    weaponType: 0
+    damage: 0
+    roundsPerMinute: 0
+    range: 0
+    accuracy: 0
+  _isAmmo: 1
+  _ammoStats:
+    ammoType: 0
+    ammoCaliber: 0
+    damage: 10
+    armorPenetration: 50
+    bleedChance: 10

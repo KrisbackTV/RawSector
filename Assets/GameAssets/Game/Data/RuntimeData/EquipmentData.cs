@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EquipmentData : IItemSource
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
 
     private ItemInstance _primaryGun;
     private ItemInstance _secondaryGun;
@@ -15,7 +15,7 @@ public class EquipmentData : IItemSource
     private ItemInstance _backpack;
     
 
-    public EquipmentData(InventoryActions inventoryActions)
+    public EquipmentData(GameActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
         if (_inventoryActions != null)

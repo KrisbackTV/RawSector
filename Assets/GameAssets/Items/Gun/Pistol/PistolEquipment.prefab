@@ -47,9 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
   gunItemData: {fileID: 11400000, guid: d52ceff3a9ba29044a3e5f54235036a4, type: 2}
-  damage: 11
-  fireRate: 0.2
-  range: 100
   firePoint: {fileID: 3588495539907786155}
 --- !u!1 &8140220115708066352
 GameObject:

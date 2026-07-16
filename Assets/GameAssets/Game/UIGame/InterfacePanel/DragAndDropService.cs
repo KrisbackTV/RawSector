@@ -4,11 +4,13 @@ using VContainer.Unity;
 
 public class DragAndDropService : IStartable
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
+    private PlayerData _playerData;
 
-    public DragAndDropService(InventoryActions inventoryActions)
+    public DragAndDropService(GameActions inventoryActions, PlayerData playerData)
     {
         _inventoryActions = inventoryActions;
+        _playerData = playerData;
     }
 
     public void Start()
@@ -67,7 +69,9 @@ public class DragAndDropService : IStartable
                          return;
                      }
                  });
-                 _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance);
+
+                 Vector3 dropPos = _playerData.PlayerPosition + _playerData.Forward * 1.2f;
+                 _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance, dropPos, Quaternion.identity);
                  FinishDragging();
              }
          });
@@ -77,7 +81,7 @@ public class DragAndDropService : IStartable
     {
         if (!IsDragging) return;
 
-        _draggedItemContext._inventoryOwner.Receive(_draggedItemContext, (isSuccess) =>
+        _draggedItemContext._inventoryOwner.Sourse(_draggedItemContext, (isSuccess) =>
         {
             if (isSuccess)
             {
@@ -86,7 +90,9 @@ public class DragAndDropService : IStartable
             }
             else
             {
-                _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance);
+                Vector3 dropPos = _playerData.PlayerPosition + _playerData.Forward * 1.2f;
+
+                _inventoryActions.InvokeOnDropItemInWorld(_draggedItemContext._itemInstance, dropPos, Quaternion.identity);
                 FinishDragging();
                 return;
             }

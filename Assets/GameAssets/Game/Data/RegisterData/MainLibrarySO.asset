@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AssetsLibrarySO
   _testSceneForGame: 1
   playerPrefab: {fileID: 2841236634307470476, guid: d848d9efb93096d4c8e333476f8c9881, type: 3}
-  _playerDataSO: {fileID: 11400000, guid: cd637d6d45bdc564d981f54b935decf2, type: 2}
+  _playerDataSO: {fileID: 11400000, guid: b17c990822ca3134087aab12c7235b97, type: 2}
   _playerInventory: {fileID: 11400000, guid: 4b569bb5a9f5f16448d6a215cb55ed34, type: 2}
   UIGridPanelprefab: {fileID: 1067839148966481091, guid: 245cb0551957d9b49a50418750c94e6a, type: 3}
   UIGridItemSlotPrefab: {fileID: 8587278029727377582, guid: caee95f47a41b374fb334a6ba481abd8, type: 3}

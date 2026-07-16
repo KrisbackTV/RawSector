@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StamineSystem : MonoBehaviour, IStaminable, IStaminaRegenerator
 {
-    private EnemyDataSO enemyData;
+    private EnemyConfigSO enemyData;
 
     private float currentStamine = 100f;
     private bool canRegenerate = false;
@@ -50,13 +50,13 @@ public class StamineSystem : MonoBehaviour, IStaminable, IStaminaRegenerator
         //}
     }
 
-    public void Initialize(EnemyDataSO enemyDataSO)
+    public void Initialize(EnemyConfigSO enemyDataSO)
     {
         if (enemyDataSO == null) return;
 
         enemyData = enemyDataSO;
 
-        if (enemyData is PlayerDataSO)
+        if (enemyData is PlayerConfigSo)
         {
             currentStamine = enemyData.maxStamine;
             Debug.Log("Данные взяты из SO");

@@ -10,10 +10,10 @@ using VContainer;
 public class EquipSlotView : MonoBehaviour, IPointerDownHandler
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
     private PlayerData _playerData;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions inventoryActions, PlayerData playerData)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, GameActions inventoryActions, PlayerData playerData)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inventoryActions = inventoryActions;

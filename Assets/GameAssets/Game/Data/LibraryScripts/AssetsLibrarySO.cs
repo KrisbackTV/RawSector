@@ -12,7 +12,7 @@ public class AssetsLibrarySO : ScriptableObject
     [Header("Player")]
     public GameObject playerPrefab;
     [Space]
-    public PlayerDataSO _playerDataSO;
+    public PlayerConfigSo _playerDataSO;
     [Space]
     public InventorySO _playerInventory;
 

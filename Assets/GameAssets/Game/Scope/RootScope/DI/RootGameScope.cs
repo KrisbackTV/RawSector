@@ -14,7 +14,7 @@ public class RootGameScope : LifetimeScope
     {
         //SERVICE
         builder.RegisterInstance(_gameStateMachine);
-        builder.Register<InventoryActions>(Lifetime.Singleton);
+        builder.Register<GameActions>(Lifetime.Singleton);
         builder.Register<SceneLoader>(Lifetime.Singleton);
         builder.Register<InputService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         builder.Register<GameCore>(Lifetime.Singleton);

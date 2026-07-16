@@ -15,7 +15,7 @@ public enum MovementState
     Sprint,
 }
 
-public class EnemyDataSO : ScriptableObject
+public class EnemyConfigSO : ScriptableObject
 {
     [Header("CurrentState")]
     public EnemyState enemyStance = EnemyState.Stand;

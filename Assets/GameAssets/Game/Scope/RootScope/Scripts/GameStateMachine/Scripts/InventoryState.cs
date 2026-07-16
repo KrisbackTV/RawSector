@@ -9,10 +9,10 @@ public class InventoryState : GameState
     private AssetsLibrarySO _assetsLibrarySO;
     private SceneLoader _sceneLoader;
     private InputService _inputService;
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
 
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibraryOS, SceneLoader sceneLoader, InputService inputService, InventoryActions inventoryActions)
+    public void Construct(AssetsLibrarySO assetsLibraryOS, SceneLoader sceneLoader, InputService inputService, GameActions inventoryActions)
     {
         _assetsLibrarySO = assetsLibraryOS;
         _sceneLoader = sceneLoader;

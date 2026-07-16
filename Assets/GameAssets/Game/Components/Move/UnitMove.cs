@@ -51,7 +51,7 @@ public class UnitMove : MonoBehaviour
     {
 
         Vector3 worldMove = transform.TransformDirection(_moveDirection);
-        Vector3 velocity = worldMove * _speedProvider.GetCurrentSpeed();
+        Vector3 velocity = worldMove * speed;
         
         if (_characterController.isGrounded)
         {

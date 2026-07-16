@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour, IDamageable, IHealth
 {
-    public EnemyDataSO enemyData;
+    public EnemyConfigSO enemyData;
 
     private float currentHealth;
     private bool isDead = false;
@@ -32,11 +32,11 @@ public class HealthSystem : MonoBehaviour, IDamageable, IHealth
     //    }
     //}
 
-    public void Initialize(EnemyDataSO enemyDataSO)
+    public void Initialize(EnemyConfigSO enemyDataSO)
     {
         if (enemyData == null) return;
 
-        if (!(enemyData is PlayerDataSO))
+        if (!(enemyData is PlayerConfigSo))
         {
             currentHealth = enemyData.maxHealth;
         }

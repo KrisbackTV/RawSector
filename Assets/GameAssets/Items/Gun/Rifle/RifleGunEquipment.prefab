@@ -77,10 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c8b946316fbbb4b899566f10b210e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
-  gunItemData: {fileID: 11400000, guid: a6526071d67c84d4ea157ecf0099903e, type: 2}
-  damage: 10
-  fireRate: 0.5
-  range: 100
+  gunItemData: {fileID: 11400000, guid: 579e91bd5394ee8428b450189ffdc92c, type: 2}
   firePoint: {fileID: 6293571483852841646}
 --- !u!1001 &8132550953766172517
 PrefabInstance:

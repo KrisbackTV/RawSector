@@ -6,9 +6,9 @@ using VContainer.Unity;
 
 public class InventoryService : IStartable
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
 
-    public InventoryService(InventoryActions inventoryActions)
+    public InventoryService(GameActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
     }
@@ -106,6 +106,8 @@ public class InventoryService : IStartable
 
     private bool TryPlaceItem(InventoryData inventory, ItemInstance item, int startX, int startY)
     {
+        if (inventory == null || item == null || startX <= -1 || startY <= -1) return false;
+
         if (!CanPlaceItem(inventory, item, startX, startY))
         {
             ItemInstance iteminstance = inventory._items[startX, startY];

@@ -5,14 +5,14 @@ using VContainer;
 
 public class ItemWorld : MonoBehaviour, IInteractable
 {
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
     [Inject]
-    public void Construct(InventoryActions inventoryActions)
+    public void Construct(GameActions inventoryActions)
     {
         _inventoryActions = inventoryActions;
     }
 
-    public ItemData _itemdataSO;
+    public ItemData _itemData;
     public ItemInstance _itemInstance;
 
     [Header("Manual Setup (Scene Only)")]
@@ -23,41 +23,48 @@ public class ItemWorld : MonoBehaviour, IInteractable
     {
         if (_itemInstance == null || _itemInstance._itemData == null)
         {
-            if (_itemdataSO != null)
+            if (_itemData != null)
             {
-                _itemInstance = new ItemInstance(_itemdataSO, _countOverride);
+                _itemInstance = new ItemInstance(_itemData, _countOverride);
             }
         }
     }
 
-    public void Setup(ItemInstance itemInstance)
+    public void Initialize(ItemInstance itemInstance)
     {
         _itemInstance = itemInstance;
-        _itemdataSO = itemInstance._itemData;
+        _itemData = itemInstance._itemData;
     }
 
     public void Interact(GameObject initiator)
     {
-        PlayerData playerData = initiator.GetComponentInChildren<PlayerManager>()._playerData;
-
-        if (playerData != null)
+        if (initiator.TryGetComponent<IPlayerInventoryProvider>(out var inventoryProvider))
         {
-            _inventoryActions.InvokeOnTryAddToFreeSlotToInventory( playerData._playerInventory, _itemInstance, (IsSuccess) =>
+            var targetInventory = inventoryProvider.PlayerInventory;
+            
+            if (targetInventory != null)
             {
-                if (IsSuccess)
+                _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(targetInventory, _itemInstance, (IsSuccess) =>
                 {
-                    Destroy(gameObject);
-                }
-            });
+                    if (IsSuccess)
+                    {
+                        Destroy(gameObject);
+                    }
+                });
 
+            }
+        }
+        else
+        {
+            Debug.Log("не найдено");
         }
     }
 
     public string GetInteractText()
     {
-        if (_itemdataSO != null)
+        if (_itemData != null)
         {
-            return ($"{_itemdataSO.name}");
+            return ($"{_itemData.name}");
         }
         return ("null");
     }

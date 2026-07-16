@@ -6,7 +6,7 @@ public class SceneLoader
 {
     private const string MENU_SCENE = "Menu";
     private const string GAMEPLAY_SCENE = "GamePlay";
-    private string _currentMapName;
+    public string _currentMapName;
 
     public void LoadScene(string mapName)
     {

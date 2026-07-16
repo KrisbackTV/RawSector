@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InventoryActions
+public class GameActions
 {
     //InventoryService
     public event Action<InventoryData, ItemInstance, Action<bool>> OnTryAddToFreeSlotToInventory;
@@ -40,11 +40,11 @@ public class InventoryActions
 
 
     //FABRICService
-    public event Action<ItemInstance> OnDropItemInWorld;
-    public void InvokeOnDropItemInWorld(ItemInstance item)
+    public event Action<ItemInstance, Vector3, Quaternion> OnDropItemInWorld;
+    public void InvokeOnDropItemInWorld(ItemInstance item, Vector3 position, Quaternion rotate)
     {
-        OnDropItemInWorld?.Invoke(item);
-        Debug.Log($"предмет: {item._itemName}, выкинули в мир");
+        OnDropItemInWorld?.Invoke(item, position, rotate);
+        Debug.Log($"выкинут предмет, Предмет: {item._itemData.name}, Позиция: {position}");
     }
 
 

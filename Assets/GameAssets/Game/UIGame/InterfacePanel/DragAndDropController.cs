@@ -9,11 +9,11 @@ using VContainer.Unity;
 public class DragAndDropController : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
     private InputService _inputService;
     private IObjectResolver _objectResolver;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, EquipmentService equipmentService, InventoryActions inventoryActions, InputService inputService, IObjectResolver objectResolver)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, EquipmentService equipmentService, GameActions inventoryActions, InputService inputService, IObjectResolver objectResolver)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inventoryActions = inventoryActions;
@@ -44,28 +44,6 @@ public class DragAndDropController : MonoBehaviour
         Subscribe();
     }
 
-    private void DropItemInWorld()
-    {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-
-        eventData.position = Mouse.current.position.ReadValue();
-
-        List<RaycastResult> results = new List<RaycastResult>();
-
-        EventSystem.current.RaycastAll(eventData, results);
-
-        foreach (RaycastResult hit in results)
-        {
-            if (hit.gameObject.GetComponentInParent<IDropItemInWorld>() != null)
-            {
-                IDropItemInWorld component = hit.gameObject.GetComponentInParent<IDropItemInWorld>();
-
-                ItemInstance item = component.GetItemDropInWorld();
-                _inventoryActions.InvokeOnDropItemInWorld(item);
-            }
-        }
-    }
-
     private void ShowGhostItem(ItemInstance item)
     {
         _activeGhostItem.Show(item);
@@ -80,8 +58,6 @@ public class DragAndDropController : MonoBehaviour
     {
         if (_inventoryActions != null)
         {
-            _inputService.OnDropItem += DropItemInWorld;
-
             _inventoryActions.OnShowGhostItem += ShowGhostItem;
             _inventoryActions.OnHideGhostItem += HideGhostItem;
         }
@@ -92,8 +68,6 @@ public class DragAndDropController : MonoBehaviour
     {
         if (_inventoryActions != null)
         {
-            _inputService.OnDropItem -= DropItemInWorld;
-
             _inventoryActions.OnShowGhostItem -= ShowGhostItem;
             _inventoryActions.OnHideGhostItem -= HideGhostItem;
         }

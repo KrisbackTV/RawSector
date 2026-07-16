@@ -8,9 +8,9 @@ using VContainer;
 public class EquipmentService
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InventoryActions _actionList;
+    private GameActions _actionList;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions uIActionList, PlayerData playerData)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, GameActions uIActionList, PlayerData playerData)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _actionList = uIActionList;

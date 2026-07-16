@@ -6,7 +6,7 @@ public class CoreLifetimeScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.Register<PlayerStats>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+        builder.Register<PlayerRuntimeData>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         Debug.Log("PlayerStats зарегестрирован");
         
         builder.Register<PlayerData>(Lifetime.Singleton);
@@ -20,5 +20,8 @@ public class CoreLifetimeScope : LifetimeScope
         
         builder.Register<EquipmentService>(Lifetime.Singleton);
         Debug.Log("EquipmentService зарегестрирован");
+
+        builder.RegisterEntryPoint<WorldObjectFactory>(Lifetime.Singleton).As<IWorldObjectFactory>().AsSelf();
+        Debug.Log("WorldObjectFactory зарегестрирован");
     }
 }

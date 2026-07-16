@@ -4,9 +4,9 @@ using VContainer;
 public class InteractionSystem : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InputService _inputService;
+    private IInputProvider _inputService;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, InputService inputService)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, IInputProvider inputService)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inputService = inputService;

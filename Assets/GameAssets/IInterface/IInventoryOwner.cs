@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IInventoryOwner
 {
-    PlayerDataSO GetPlayerData();
+    PlayerConfigSo GetPlayerData();
     InventorySO GetInventory();
     Transform GetTransform();
     IInputProvider GetInput();

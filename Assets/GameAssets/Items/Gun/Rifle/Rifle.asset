@@ -9,23 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e49c619f1e252c341977042f13a919a4, type: 3}
-  m_Name: RifleGun
-  m_EditorClassIdentifier: Assembly-CSharp::GunItemData
-  id: 4
-  itemName: RifleGun
-  type: 1
-  width: 4
+  m_Script: {fileID: 11500000, guid: 0e5438ebcf542ba42b0dc0da51ae6673, type: 3}
+  m_Name: Rifle
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  id: 15
+  itemName: Rifle
+  type: 2
+  width: 5
   height: 2
+  maxCount: 1
   IsEquipped: 1
   equipmentType: 1
-  maxCount: 1
   _itemActionType: 6
   ItemSprite: {fileID: -73693797, guid: 0809a88af4797684ba35ad59d1bd072a, type: 3}
   worldPrefab: {fileID: 2566009654982961982, guid: f7ec9558d701004478c881c750a8a163, type: 3}
   equipmentPrefab: {fileID: 8712643593242644624, guid: d8b5c910c0018f049bec96c72807801c, type: 3}
-  WeaponType: 1
-  damage: 10
-  roundsPerMinute: 120
-  range: 100
-  accuracy: 0.9
+  _isWeapon: 1
+  _gunStats:
+    weaponType: 1
+    damage: 20
+    roundsPerMinute: 500
+    range: 52
+    accuracy: 12
+  _isAmmo: 0
+  _ammoStats:
+    ammoType: 0
+    ammoCaliber: 0
+    damage: 0
+    armorPenetration: 0
+    bleedChance: 0

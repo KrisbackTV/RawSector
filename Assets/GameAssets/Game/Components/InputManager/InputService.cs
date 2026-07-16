@@ -9,9 +9,9 @@ using VContainer.Unity;
 public class InputService : IInputProvider, IStartable, IDisposable
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, InventoryActions inventoryActions)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, GameActions inventoryActions)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inventoryActions = inventoryActions;

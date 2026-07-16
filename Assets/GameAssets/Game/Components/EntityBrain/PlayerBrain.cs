@@ -2,7 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class PlayerBrain : MonoBehaviour
+public class PlayerBrain : MonoBehaviour, IPlayerInventoryProvider
 {
     private AssetsLibrarySO _assetsLibrarySO;
     private IInputProvider _inputProvider;
@@ -22,6 +22,8 @@ public class PlayerBrain : MonoBehaviour
     private CrouchAndProne _crouchAndProne;
     private SprintSystem _sprintSystem;
 
+    public InventoryData PlayerInventory => _playerData?._playerInventory;
+
 
     private void Awake()
     {
@@ -29,12 +31,6 @@ public class PlayerBrain : MonoBehaviour
         _camMotor = GetComponent<CameraMotor>();
         _crouchAndProne = GetComponent<CrouchAndProne>();
         _sprintSystem = GetComponent<SprintSystem>();
-    }
-
-
-    private void OnEnable()
-    {
-        Subscribe();
     }
 
     private void Subscribe()
@@ -61,9 +57,10 @@ public class PlayerBrain : MonoBehaviour
     {
         if (_inputProvider == null) return;
 
-        if (_unitMove != null) _unitMove.SetDirection(_inputProvider.GetMovement());
-        if (_camMotor != null) _camMotor.SetDirectionCamera(_inputProvider.GetLook());
-        if(_sprintSystem != null) _sprintSystem.SetMovement(_inputProvider.GetMovement());
+        _unitMove.SetDirection(_inputProvider.GetMovement());
+        _camMotor.SetDirectionCamera(_inputProvider.GetLook());
+        _sprintSystem.SetMovement(_inputProvider.GetMovement());
+
     }
 
     private void OnPlayerInventory()

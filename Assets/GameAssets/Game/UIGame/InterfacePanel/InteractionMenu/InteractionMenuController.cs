@@ -9,13 +9,15 @@ using VContainer.Unity;
 public class InteractionMenuController : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    private InventoryActions _inventoryActions;
+    private GameActions _inventoryActions;
+    private PlayerData _playerData;
     private IObjectResolver _objectResolver;
     [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, EquipmentService equipmentService, InventoryActions inventoryActions, IObjectResolver objectResolver)
+    public void Construct(AssetsLibrarySO assetsLibrarySO, EquipmentService equipmentService, GameActions inventoryActions, PlayerData playerData, IObjectResolver objectResolver)
     {
         _assetsLibrarySO = assetsLibrarySO;
         _inventoryActions = inventoryActions;
+        _playerData = playerData;
         _objectResolver = objectResolver;
     }
 
@@ -81,7 +83,9 @@ public class InteractionMenuController : MonoBehaviour
         {
             AddButton("Выбросить", () =>
             {
-                _inventoryActions.InvokeOnDropItemInWorld(contextItem._itemInstance);
+                Vector3 dropPos = _playerData.PlayerPosition + _playerData.Forward * 1.2f;
+
+                _inventoryActions.InvokeOnDropItemInWorld(contextItem._itemInstance, dropPos, Quaternion.identity);
                 contextItem._inventoryOwner.Remove(contextItem._itemInstance, null);
             });
         }
