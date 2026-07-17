@@ -10,11 +10,11 @@ public class PlayerEntity : MonoBehaviour
     {
         _playerData = playerData;
 
-        _playerData.RegisterPlayer(this);
+        _playerData._playerRuntimeData.RegisterPlayer(this);
     }
 
     private void OnDestroy()
     {
-        if(_playerData != null ) _playerData.UnregisterPlayer();
+        if(_playerData != null ) _playerData._playerRuntimeData.UnregisterPlayer();
     }
 }

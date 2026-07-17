@@ -15,8 +15,7 @@ public class CrouchAndProne : MonoBehaviour
     private bool IsProneToggled = false;
     private bool IsCrouchToggle = false;
 
-    [Inject]
-    public void Construct(IEnemyStateStatsProvider enemyState, IHeightStatsProvider heightStats)
+    public void Initialize(IEnemyStateStatsProvider enemyState, IHeightStatsProvider heightStats)
     {
         _enemyState = enemyState;
         _heightStats = heightStats;
@@ -40,6 +39,8 @@ public class CrouchAndProne : MonoBehaviour
 
     private void Update()
     {
+        if(_enemyState == null || _heightStats == null) return;
+
         if (!_characterController.isGrounded && !IsProneToggled && !IsCrouchToggle)
         {
             _enemyState.SetEnemyState(EnemyState.InAir);

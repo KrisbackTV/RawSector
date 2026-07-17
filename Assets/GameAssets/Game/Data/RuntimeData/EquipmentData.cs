@@ -63,7 +63,7 @@ public class EquipmentData : IItemSource
             EquipmentType.Grenade => _grenade,
             EquipmentType.Armor => _armor,
             EquipmentType.Backpack => _backpack,
-            _ => null
+            _ => _primaryGun
         };
     }
 

@@ -83,7 +83,7 @@ public class InteractionMenuController : MonoBehaviour
         {
             AddButton("Выбросить", () =>
             {
-                Vector3 dropPos = _playerData.PlayerPosition + _playerData.Forward * 1.2f;
+                Vector3 dropPos = _playerData._playerRuntimeData.PlayerPosition + _playerData._playerRuntimeData.Forward * 1.2f;
 
                 _inventoryActions.InvokeOnDropItemInWorld(contextItem._itemInstance, dropPos, Quaternion.identity);
                 contextItem._inventoryOwner.Remove(contextItem._itemInstance, null);

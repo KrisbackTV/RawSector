@@ -32,3 +32,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3f93adf8d5559f40b4a2acc825a7c93, type: 2}
   - {fileID: 11400000, guid: 926421bca0c2b9746ad9108cc0389a82, type: 2}
   _sensivity: 120
+  testItem: {fileID: 11400000, guid: 579e91bd5394ee8428b450189ffdc92c, type: 2}

@@ -24,9 +24,9 @@ public class PlayerSpawner : IStartable
         var targetScene = _points[0].gameObject.scene;
 
         var prefab = _assetsLibrarySO.playerPrefab;
-        var player = Object.Instantiate(prefab, targetPoint.transform.position, targetPoint.transform.rotation);
+        var player = _resolver.Instantiate(prefab, targetPoint.transform.position, targetPoint.transform.rotation);
         SceneManager.MoveGameObjectToScene(player, targetScene);
 
-        _resolver.InjectGameObject(player);
+        //_resolver.InjectGameObject(player);
     }
 }

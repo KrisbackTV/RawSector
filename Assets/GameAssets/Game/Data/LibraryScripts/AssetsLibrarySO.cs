@@ -55,4 +55,9 @@ public class AssetsLibrarySO : ScriptableObject
     {
         return _allState.FirstOrDefault(s => s._state == state);
     }
+
+
+
+    //TEST
+    public ItemData testItem;
 }

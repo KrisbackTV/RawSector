@@ -13,8 +13,7 @@ public class SprintSystem : MonoBehaviour
     bool IsSprintPressed = false;
     bool IsMoving = false;
 
-    [Inject]
-    public void Construct(IEnemyStateStatsProvider enemyStateStatsProvider, ISpeedStatsProvider speedStatsProvider)
+    public void Initialize(IEnemyStateStatsProvider enemyStateStatsProvider, ISpeedStatsProvider speedStatsProvider)
     {
         _enemyStateStatsProvider = enemyStateStatsProvider;
         _speedStatsProvider = speedStatsProvider;

@@ -3,7 +3,7 @@ using VContainer;
 
 public class CameraMotor : MonoBehaviour
 {
-    private AssetsLibrarySO _assetsLibrarySO;
+    private float _sensivity = 0f;
 
     private Transform _pCam;
     private Transform _pBody;
@@ -13,10 +13,9 @@ public class CameraMotor : MonoBehaviour
     private float xRotation = 0f;
     private Vector2 direction;
 
-    [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO)
+    public void Initialize(float sensivity)
     {
-        _assetsLibrarySO = assetsLibrarySO;
+        _sensivity = sensivity;
     }
 
     private void Awake()
@@ -35,13 +34,10 @@ public class CameraMotor : MonoBehaviour
 
     private void Update()
     {
-        if (_assetsLibrarySO != null)
-        {
             if(isLocked)
                 direction = Vector2.zero;
 
-            Rotate(_assetsLibrarySO._sensivity);
-        }
+            Rotate(_sensivity);
     }
 
     public void Rotate(float sensivity)

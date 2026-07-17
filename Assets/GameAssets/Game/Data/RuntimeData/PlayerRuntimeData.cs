@@ -1,7 +1,5 @@
-using System.Runtime.CompilerServices;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
-using VContainer;
 
 public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemyStateStatsProvider, IHeightStatsProvider
 {
@@ -15,6 +13,38 @@ public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemy
 
         _playerDataSO = assetsLibrarySO._playerDataSO;
     }
+
+
+
+    public PlayerEntity _ActivePlayer { get; private set; }
+
+    public Vector3 PlayerPosition => _ActivePlayer != null ? _ActivePlayer.transform.position : Vector3.zero;
+    public Vector3 Forward => _ActivePlayer != null ? _ActivePlayer.transform.forward : Vector3.forward;
+    public bool IsSpawned => _ActivePlayer != null;
+
+
+    public void RegisterPlayer(PlayerEntity player)
+    {
+        _ActivePlayer = player;
+        Debug.Log("<color=cyan>[PlayerRuntimeData] Живой игрок успешно зарегистрирован в данных!</color>");
+    }
+
+    public void UnregisterPlayer()
+    {
+        _ActivePlayer = null;
+    }
+
+
+    public EquipmentType ActiveSlot { get; private set; } = EquipmentType.PrimaryGun;
+    public event Action<EquipmentType> OnActiveSlotChanged;
+
+    public void ChangeActiveSlot(EquipmentType newSlot)
+    {
+        ActiveSlot = newSlot;
+        OnActiveSlotChanged?.Invoke(ActiveSlot);
+    }
+
+
 
     //STATS
     public EnemyState _enemyState = EnemyState.Stand;

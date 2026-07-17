@@ -17,8 +17,7 @@ public class UnitMove : MonoBehaviour
     private Vector3 _moveDirection;
     private float _verticalVelocity;
 
-    [Inject]
-    public void Construct(ISpeedStatsProvider speedStatsProvider, IJumpStatsProvider jumpStatsProvider, IEnemyStateStatsProvider enemyStateStatsProvider)
+    public void Initialize(ISpeedStatsProvider speedStatsProvider, IJumpStatsProvider jumpStatsProvider, IEnemyStateStatsProvider enemyStateStatsProvider)
     {
         _speedProvider = speedStatsProvider;
         _jumpProvider = jumpStatsProvider;
