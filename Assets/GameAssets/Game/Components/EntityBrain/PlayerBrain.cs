@@ -22,6 +22,7 @@ public class PlayerBrain : MonoBehaviour, IPlayerInventoryProvider
     private CrouchAndProne _crouchAndProne;
     private SprintSystem _sprintSystem;
     private ItemToHandVisualizer _itemToHandVisualizer;
+    private StamineSystem _stamineSystem;
 
     public InventoryData PlayerInventory => _playerData?._playerInventory;
 
@@ -29,7 +30,7 @@ public class PlayerBrain : MonoBehaviour, IPlayerInventoryProvider
     private void Awake()
     {
         _unitMove = GetComponent<UnitMove>();
-        if (_unitMove != null) _unitMove.Initialize(_playerData._playerRuntimeData, _playerData._playerRuntimeData, _playerData._playerRuntimeData);
+        if (_unitMove != null) _unitMove.Initialize(_playerData._playerRuntimeData, _playerData._playerRuntimeData, _playerData._playerRuntimeData, _playerData._playerRuntimeData);
 
         _camMotor = GetComponent<CameraMotor>();
         if (_camMotor != null) _camMotor.Initialize(_assetsLibrarySO._sensivity);
@@ -42,6 +43,9 @@ public class PlayerBrain : MonoBehaviour, IPlayerInventoryProvider
 
         _itemToHandVisualizer = GetComponent<ItemToHandVisualizer>();
 
+        _stamineSystem = GetComponent<StamineSystem>();
+        if (_stamineSystem != null) _stamineSystem.Initialize(_playerData._playerRuntimeData, _playerData._playerRuntimeData);
+
         Subscribe();
     }
 
@@ -53,6 +57,7 @@ public class PlayerBrain : MonoBehaviour, IPlayerInventoryProvider
         _unitMove.SetDirection(_inputProvider.GetMovement());
         _camMotor.SetDirectionCamera(_inputProvider.GetLook());
         _sprintSystem.SetMovement(_inputProvider.GetMovement());
+        _stamineSystem.ProcessStamine(Time.deltaTime, _playerData._playerRuntimeData.GetMovementState());
 
     }
 

@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 7691169818556397260}
   - component: {fileID: 4110255039873197718}
   - component: {fileID: 4719123552224632050}
+  - component: {fileID: 5982893217759135420}
   - component: {fileID: 6292157469089424829}
   m_Layer: 8
   m_Name: Player
@@ -373,6 +374,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271449fe5a9338841ac4c8ff7c145ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentInput
+--- !u!114 &5982893217759135420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841236634307470476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c056670c57a2449b4f67a34be617d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StamineSystem
+  OnMaxStamine: {fileID: 0}
+  OnCurrentStamine: {fileID: 0}
 --- !u!143 &6292157469089424829
 CharacterController:
   m_ObjectHideFlags: 0

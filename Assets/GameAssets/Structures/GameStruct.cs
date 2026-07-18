@@ -32,6 +32,7 @@ public struct StaminaStats
     public float _regenRate;
     public float _regenDelay;
     public float _sprintCost;
+    public float _jumpCost;
 }
 
 

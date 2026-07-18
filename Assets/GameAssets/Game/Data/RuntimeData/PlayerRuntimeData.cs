@@ -1,7 +1,8 @@
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemyStateStatsProvider, IHeightStatsProvider
+public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemyStateStatsProvider, IHeightStatsProvider, IStamineStatsProvider
 {
     //DATA:
     private AssetsLibrarySO _assetsLibrarySO;
@@ -12,6 +13,8 @@ public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemy
         _assetsLibrarySO = assetsLibrarySO;
 
         _playerDataSO = assetsLibrarySO._playerDataSO;
+
+        CurrentStamina = _playerDataSO._staminaStats._maxStamina;
     }
 
 
@@ -46,9 +49,32 @@ public class PlayerRuntimeData : ISpeedStatsProvider, IJumpStatsProvider, IEnemy
 
 
 
-    //STATS
+    //State
     public EnemyState _enemyState = EnemyState.Stand;
     public MovementState _movementState = MovementState.Idle;
+
+
+    //Stamine
+    public float CurrentStamina { get; private set; }
+    public float MaxStamina { get => _playerDataSO._staminaStats._maxStamina; }
+    public float RegenRate {  get => _playerDataSO._staminaStats._regenRate; }
+    public float RegenDelay { get => _playerDataSO._staminaStats._regenDelay; }
+    public float SprintCost { get => _playerDataSO._staminaStats._sprintCost; }
+    public float JumpCost { get => _playerDataSO._staminaStats._jumpCost; }
+    
+    public event Action<float, float> OnStaminaChanged;
+    
+    public void UpdateStamina(float value)
+    {
+        CurrentStamina = Mathf.Clamp(value, 0f, MaxStamina);
+
+        OnStaminaChanged?.Invoke(CurrentStamina, MaxStamina);
+        Debug.Log($"Стамина: {CurrentStamina.ToString()}");
+    }
+
+
+
+    //Health
 
 
     public float Speed => (_enemyState, _movementState) switch

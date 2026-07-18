@@ -1,6 +1,21 @@
 using System;
 using UnityEngine;
 
+public enum EnemyState
+{
+    Stand,
+    Crouch,
+    Prone,
+    InAir
+}
+
+public enum MovementState
+{
+    Idle,
+    Walk,
+    Sprint,
+}
+
 [CreateAssetMenu(fileName = "PlayerConfigSO", menuName = "Architecture/Data/PlayerConfigSO")]
 public class PlayerConfigSo : ScriptableObject
 {

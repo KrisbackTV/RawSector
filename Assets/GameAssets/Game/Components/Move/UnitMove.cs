@@ -8,6 +8,8 @@ public class UnitMove : MonoBehaviour
     private ISpeedStatsProvider _speedProvider;
     private IJumpStatsProvider _jumpProvider;
     private IEnemyStateStatsProvider _enemyStateStatsProvider;
+    private IStamineStatsProvider _stamineStatsProvider;
+    private IStaminable _stamineSystem;
 
     private CharacterController _characterController;
 
@@ -17,22 +19,22 @@ public class UnitMove : MonoBehaviour
     private Vector3 _moveDirection;
     private float _verticalVelocity;
 
-    public void Initialize(ISpeedStatsProvider speedStatsProvider, IJumpStatsProvider jumpStatsProvider, IEnemyStateStatsProvider enemyStateStatsProvider)
+    public void Initialize(ISpeedStatsProvider speedStatsProvider, IJumpStatsProvider jumpStatsProvider, IEnemyStateStatsProvider enemyStateStatsProvider, IStamineStatsProvider stamineStatsProvider)
     {
         _speedProvider = speedStatsProvider;
         _jumpProvider = jumpStatsProvider;
         _enemyStateStatsProvider = enemyStateStatsProvider;
+        _stamineStatsProvider = stamineStatsProvider;
+
     }
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _stamineSystem = GetComponent<IStaminable>();
     }
 
-    public void SetDirection(Vector3 direction)
-    {
-        _moveDirection = direction;
-    }
+    public void SetDirection(Vector3 direction) => _moveDirection = direction;
 
     private void Update()
     {
@@ -66,13 +68,30 @@ public class UnitMove : MonoBehaviour
         _characterController.Move(velocity * Time.deltaTime);
     }
 
+
+    public bool CanJump()
+    {
+        if(_characterController == null || _isLocked) return false;
+
+        if (_stamineSystem != null && _stamineStatsProvider != null)
+        {
+            return _stamineStatsProvider.CurrentStamina >= _stamineStatsProvider.JumpCost;
+        }
+
+        return true;
+    }
+
     public void Jump()
     {
-        if (_characterController.isGrounded && !_isLocked)
+        if (CanJump())
         {
+            if (_stamineSystem != null)
+            {
+                _stamineSystem.TakeStamine(_stamineStatsProvider.JumpCost);
+            }
+            
             _verticalVelocity = MathF.Sqrt(_jumpProvider.GetJumpForce() * -2f * Physics.gravity.y);
-
-            //Костыль, иначе не работает ->
+            
             _characterController.Move(Vector3.up * 0.1f);
         }
     }

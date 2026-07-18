@@ -27,5 +27,6 @@ MonoBehaviour:
   _staminaStats:
     _maxStamina: 100
     _regenRate: 10
-    _regenDelay: 5
+    _regenDelay: 0.5
     _sprintCost: 5
+    _jumpCost: 10
