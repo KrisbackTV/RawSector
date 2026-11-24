@@ -6,7 +6,7 @@ using UnityEngine;
 public static class SceneBootstrapper
 {
     // 1. УКАЖИ ТУТ ПУТЬ К СВОЕЙ CORE СЦЕНЕ
-    private const string GlobalStartScenePath = "Assets/Scenes/GameScene/Core.unity";
+    private const string GlobalStartScenePath = "Assets/_ReworkGame/GameScene/CoreScene/CoreScene.unity";
 
     static SceneBootstrapper()
     {

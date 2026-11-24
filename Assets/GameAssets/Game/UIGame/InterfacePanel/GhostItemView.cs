@@ -1,14 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using VContainer;
 
 public class GhostItemView : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, IObjectResolver objectResolver)
+    public void Construct(AssetsLibrarySO assetsLibrarySO)
     {
         _assetsLibrarySO = assetsLibrarySO;
     }

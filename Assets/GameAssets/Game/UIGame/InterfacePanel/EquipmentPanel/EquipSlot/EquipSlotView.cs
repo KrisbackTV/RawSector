@@ -1,30 +1,11 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using VContainer;
 
 public class EquipSlotView : MonoBehaviour, IPointerDownHandler
 {
-    private AssetsLibrarySO _assetsLibrarySO;
-    private GameActions _inventoryActions;
-    private PlayerData _playerData;
-    [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, GameActions inventoryActions, PlayerData playerData)
-    {
-        _assetsLibrarySO = assetsLibrarySO;
-        _inventoryActions = inventoryActions;
-        _playerData = playerData;
-
-        if (_inventoryActions != null)
-        {
-            _inventoryActions.OnUpdateToEquipmentSlot += UpdateSlotView;
-        }
-    }
-
     [SerializeField] private GameObject _slotObj;
     [SerializeField] private RectTransform _slotRTransform;
     [SerializeField] private Image _slotImage;
@@ -91,56 +72,56 @@ public class EquipSlotView : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        switch (eventData)
-        {
-            case { button: PointerEventData.InputButton.Left }:
-                _inventoryActions.InvokeOnIsDragging((isDragging) =>
-                {
-                    if (!isDragging)
-                    {
-                        _inventoryActions.InvokeOnStartDrag(_playerData._equipmentData.GetItemToSlot(_slotType), _playerData._equipmentData, false);
-                    }
-                    else
-                    {
-                        _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (item) =>
-                        {
-                            if (item == null)
-                            {
-                                _inventoryActions.InvokeOnGetCurrentDragItem((draggItem) =>
-                                {
-                                    if (draggItem._itemInstance._itemData.equipmentType == _slotType)
-                                    {
-                                        _inventoryActions.InvokeOnEndDrag(_playerData._equipmentData);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-                break;
+        //    switch (eventData)
+        //    {
+        //        case { button: PointerEventData.InputButton.Left }:
+        //            _inventoryActions.InvokeOnIsDragging((isDragging) =>
+        //            {
+        //                if (!isDragging)
+        //                {
+        //                    _inventoryActions.InvokeOnStartDrag(_playerData._equipmentData.GetItemToSlot(_slotType), _playerData._equipmentData, false);
+        //                }
+        //                else
+        //                {
+        //                    _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (item) =>
+        //                    {
+        //                        if (item == null)
+        //                        {
+        //                            _inventoryActions.InvokeOnGetCurrentDragItem((draggItem) =>
+        //                            {
+        //                                if (draggItem._itemInstance._itemData.equipmentType == _slotType)
+        //                                {
+        //                                    _inventoryActions.InvokeOnEndDrag(_playerData._equipmentData);
+        //                                }
+        //                            });
+        //                        }
+        //                    });
+        //                }
+        //            });
+        //            break;
 
-            case { button: PointerEventData.InputButton.Right }:
-                _inventoryActions.InvokeOnIsDragging((isDragging) =>
-                {
-                    Vector2 mousePos = Mouse.current.position.ReadValue();
+        //        case { button: PointerEventData.InputButton.Right }:
+        //            _inventoryActions.InvokeOnIsDragging((isDragging) =>
+        //            {
+        //                Vector2 mousePos = Mouse.current.position.ReadValue();
 
-                    if (!isDragging)
-                    {
-                        ItemInstance itemInstance = null;
-                        _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (callback) => itemInstance = callback);
+        //                if (!isDragging)
+        //                {
+        //                    ItemInstance itemInstance = null;
+        //                    _inventoryActions.InvokeOnGetItemForEquipSlot(_slotType, (callback) => itemInstance = callback);
 
-                        if (itemInstance != null)
-                        {
-                            DragContextItem contextItem = new DragContextItem(itemInstance, _playerData._equipmentData);
-                            _inventoryActions.InvokeOnOpenInteractMenu(contextItem, mousePos);
-                        }
-                    }
-                    else
-                    {
+        //                    if (itemInstance != null)
+        //                    {
+        //                        DragContextItem contextItem = new DragContextItem(itemInstance, _playerData._equipmentData);
+        //                        _inventoryActions.InvokeOnOpenInteractMenu(contextItem, mousePos);
+        //                    }
+        //                }
+        //                else
+        //                {
 
-                    }
-                });
-                break;
-        }
+        //                }
+        //            });
+        //            break;
+        //    }
     }
 }

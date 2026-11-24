@@ -23,14 +23,16 @@ public struct MovementStats
 public struct HealthStats
 {
     public float _maxHealth;
+    public float _healthRegenRate;
+    public float _healthRegenDelay;
 }
 
 [Serializable]
 public struct StaminaStats
 {
     public float _maxStamina;
-    public float _regenRate;
-    public float _regenDelay;
+    public float _staminaRegenRate;
+    public float _staminaRegenDelay;
     public float _sprintCost;
     public float _jumpCost;
 }
@@ -82,6 +84,39 @@ public struct AmmoStats
     public float damage;
     public float armorPenetration;
     public float bleedChance;
+}
+
+public enum DamageType
+{
+    Kinetic,    // Пули, взрывы
+    Bite,       // Мутанты (собаки, кровососы)
+    Radiation,  // Радиационные очаги
+    Anomaly,    // Электра, Жарка, Карусель
+    Bleeding    // Урон от кровотечения
+}
+
+public enum HitZone
+{
+    Default,
+    Head,
+    Torso,
+    Legs
+}
+
+public struct DamageInfo
+{
+    public float RawAmount;
+    public DamageType Type;
+    public HitZone Zone;
+    public string SourceName;
+
+    public DamageInfo(float amount, DamageType type, string sourceName = "Неизвестно", HitZone zone = HitZone.Default)
+    {
+        RawAmount = amount;
+        Type = type;
+        SourceName = sourceName;
+        Zone = zone;
+    }
 }
 
 public class GameStruct

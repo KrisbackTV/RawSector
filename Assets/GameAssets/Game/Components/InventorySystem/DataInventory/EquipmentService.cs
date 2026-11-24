@@ -1,32 +1,13 @@
-using NUnit.Framework.Constraints;
 using System;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.Universal;
-using UnityEngine;
-using VContainer;
 
 public class EquipmentService
 {
-    private AssetsLibrarySO _assetsLibrarySO;
-    private GameActions _actionList;
-    [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO, GameActions uIActionList, PlayerData playerData)
-    {
-        _assetsLibrarySO = assetsLibrarySO;
-        _actionList = uIActionList;
-
-        if (_actionList != null)
-        {
-            _actionList.OnDropItemToEquipmentSlot += SetItemForSlot;
-            _actionList.OnRemoveItemToEquipmentSlot += RemoveItemToSlot;
-        }
-    }
 
     public void SetItemForSlot(EquipmentData data, ItemInstance item)
     {
         if (data == null || item == null)
         {
-            Debug.Log("data/itemInstance отсутствует");
+            GameLog.LogInfo("data/itemInstance отсутствует");
             return;
         }
 

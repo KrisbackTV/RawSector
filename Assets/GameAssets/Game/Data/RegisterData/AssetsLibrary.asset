@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e44df6874f14749a1551d8361ff147, type: 3}
+  m_Name: AssetsLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::AssetsLibrarySO
+  _testSceneForGame: 1
+  testItemData: {fileID: 11400000, guid: e385178f9b8a6ed43bbd1fab24f651e0, type: 2}
+  playerPrefab: {fileID: 2841236634307470476, guid: d848d9efb93096d4c8e333476f8c9881, type: 3}
+  _playerDataSO: {fileID: 11400000, guid: b17c990822ca3134087aab12c7235b97, type: 2}
+  _playerInventory: {fileID: 11400000, guid: 4b569bb5a9f5f16448d6a215cb55ed34, type: 2}
+  UIGridPanelprefab: {fileID: 1067839148966481091, guid: 245cb0551957d9b49a50418750c94e6a, type: 3}
+  UIGridItemSlotPrefab: {fileID: 8587278029727377582, guid: caee95f47a41b374fb334a6ba481abd8, type: 3}
+  backgroundImagePrefab: {fileID: -1234935118, guid: 15bf2c97a734614429995c28f0b5e2b7, type: 3}
+  UIGhostItemViewPrefab: {fileID: 3233380066178570935, guid: 66047fc17bd88904ab3c378e9dc2ab5c, type: 3}
+  _interactMenuPrefab: {fileID: 8986283052814921259, guid: af617f978f886f7419b53f382be75fd8, type: 3}
+  _interactButtonPrefab: {fileID: 6812454188163170023, guid: 464054260766857479f2f260b2d810a1, type: 3}
+  cellSize: 64
+  _picUpDistance: 1.5
+  _dropDistance: 1.5
+  _sensivity: 4

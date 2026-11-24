@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerController : IInputProvider
+public class PlayerController
 {
     public event Action OnPronePressed;
     public event Action OnJumpPressed;

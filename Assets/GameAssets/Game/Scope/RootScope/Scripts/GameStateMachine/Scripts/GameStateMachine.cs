@@ -1,51 +1,50 @@
 using System.Collections.Generic;
-using UnityEngine;
-using VContainer.Unity;
 
-[CreateAssetMenu(fileName = "GameStateMachine", menuName = "Architecture/StateMachine")]
-public class GameStateMachine : ScriptableObject
+public class GameStateMachine
 {
     private Stack<GameState> _stateStack = new Stack<GameState>();
-
     public GameState CurrentState => _stateStack.Count > 0 ? _stateStack.Peek() : null;
 
-    public void Initialize()
+    public void Start()
     {
         _stateStack.Clear();
     }
 
-    public void PushState(GameState newState)
+    public void PushState(GameMachineState stateType)
     {
-        if (newState == null || newState == CurrentState) return;
+        //if (_assetsLibrarySO.GetGameStateForType(stateType) == CurrentState) return;
 
-        CurrentState?.ExitState();
+        //GameState newState = _assetsLibrarySO.GetGameStateForType(stateType);
 
-        _stateStack.Push(newState);
-        newState.EnterState();
+        //CurrentState?.ExitState();
 
-        Debug.Log($"current state: {CurrentState.name}, stack count: {_stateStack.Count}");
+        //_stateStack.Push(newState);
+        //newState.EnterState();
+
+        //GameLog.LogInfo($"current state: {CurrentState.name}, stack count: {_stateStack.Count}");
     }
 
     public void PopState()
     {
         if (_stateStack.Count <= 1)
         {
-            Debug.Log("cant pop, last state!");
+            GameLog.LogWarning("cant pop, last state!");
         }
 
         _stateStack.Pop().ExitState();
 
         CurrentState?.EnterState();
-        Debug.Log($"Poped state:{CurrentState?.name}");
+        GameLog.LogInfo($"Poped state:{CurrentState?.name}");
     }
 
-    public void ChangeState(GameState newState)
+    public void ChangeState(GameMachineState stateType)
     {
         while (_stateStack.Count > 0)
         {
             _stateStack.Pop().ExitState();
         }
-        PushState(newState);
+
+        PushState(stateType);
     }
 
     public void ExecuteTick() => CurrentState?.UpdateState();

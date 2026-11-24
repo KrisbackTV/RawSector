@@ -1,12 +1,9 @@
-using UnityEditorInternal;
 using UnityEngine;
-using VContainer;
 
 public class Background : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
 
-    [Inject]
     public void Construct(AssetsLibrarySO assetsLibrarySO)
     {
         _assetsLibrarySO = assetsLibrarySO;

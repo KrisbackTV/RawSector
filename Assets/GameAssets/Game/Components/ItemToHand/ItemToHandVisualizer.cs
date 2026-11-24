@@ -1,10 +1,22 @@
 using UnityEngine;
 
-public class ItemToHandVisualizer : MonoBehaviour
+public class ItemToHandVisualizer : MonoBehaviour, IEntityModule
 {
+    private IEquipmentDataProvider _equipmentDataProvider;
+
+    public void OnEntityInitializer(IEntityContext context)
+    {
+        _equipmentDataProvider = context.EquipmentDataProvider;
+
+        //EquipItemVisual(context.CurrentHandItem);
+        Subscribe();
+    }
+
     [SerializeField] private Transform _handGripPoint;
 
-    private GameObject _currentHandObject;
+    private GameObject _currentItemToHand;
+
+
 
     public void EquipItemVisual(ItemInstance itemData)
     {
@@ -12,20 +24,32 @@ public class ItemToHandVisualizer : MonoBehaviour
 
         if (itemData == null || itemData._itemData == null || itemData._itemData.equipmentPrefab == null) return;
 
-        _currentHandObject = Instantiate(itemData._itemData.equipmentPrefab, _handGripPoint);
+        _currentItemToHand = Instantiate(itemData._itemData.equipmentPrefab, _handGripPoint);
 
-        _currentHandObject.transform.localPosition = Vector3.zero;
-        _currentHandObject.transform.localRotation = Quaternion.identity;
+        _currentItemToHand.transform.localPosition = Vector3.zero;
+        _currentItemToHand.transform.localRotation = Quaternion.identity;
     }
 
     public void ClearHand()
     {
-        if (_currentHandObject != null)
+        if (_currentItemToHand != null)
         {
-            Destroy(_currentHandObject);
-            _currentHandObject = null;
+            Destroy(_currentItemToHand);
+            _currentItemToHand = null;
         }
-
-        Debug.Log("Excelend)");
     }
+
+    private void Subscribe()
+    {
+        _equipmentDataProvider.OnActiveItemChanged += EquipItemVisual;
+    }
+
+    private void UnSubscribe()
+    {
+        _equipmentDataProvider.OnActiveItemChanged -= EquipItemVisual;
+    }
+
+    private void OnDisable() => UnSubscribe();
+
+    private void OnDestroy() => UnSubscribe();
 }

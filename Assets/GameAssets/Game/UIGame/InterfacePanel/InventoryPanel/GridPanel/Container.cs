@@ -1,12 +1,8 @@
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using VContainer;
 
 public class Container : MonoBehaviour
 {
     private AssetsLibrarySO _assetsLibrarySO;
-    [Inject]
     public void Construct(AssetsLibrarySO assetsLibrarySO)
     {
         _assetsLibrarySO = assetsLibrarySO;

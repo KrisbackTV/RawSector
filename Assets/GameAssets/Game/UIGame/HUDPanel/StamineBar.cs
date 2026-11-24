@@ -2,34 +2,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class StamineBar : MonoBehaviour
 {
+    public IStamineStatsProvider _staminaData;
     public Image BarStamine;
-    public TextMeshProUGUI valueStamine;
 
-    private float maxStamine;
-    private float currentStamine;
-
-    public void SetMaxStamine(float value)
+    public void Construct(IStamineStatsProvider staminaData)
     {
-        maxStamine = value;
-        Refresh();
+        _staminaData = staminaData;
+        _staminaData.OnStaminaChanged += Refresh;
+
+        Refresh(_staminaData.CurrentStamina, _staminaData.MaxStamina);
     }
 
-    public void SetCurrentStamine(float value)
+    private void Refresh(float currentStamina, float maxStamina)
     {
-        currentStamine = value;
-        Refresh();
+        if( maxStamina <= 0) return;
+
+        BarStamine.fillAmount = currentStamina / maxStamina;
     }
-
-    private void Refresh()
-    {
-        if(maxStamine <= 0) return;
-
-        float ratio = currentStamine / maxStamine;
-
-        if(BarStamine != null) BarStamine.fillAmount = Mathf.Clamp01(ratio);
-        if (valueStamine != null) valueStamine.text = ($"{(int)currentStamine}%");
-    }
-
 }

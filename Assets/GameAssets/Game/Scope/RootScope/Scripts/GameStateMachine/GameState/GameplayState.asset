@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a040ab6c7cf3e40b6b5c67ac348176, type: 3}
   m_Name: GameplayState
   m_EditorClassIdentifier: Assembly-CSharp::GameplayState
-  _state: 1
+  _state: 2

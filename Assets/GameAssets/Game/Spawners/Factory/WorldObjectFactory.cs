@@ -1,60 +1,57 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VContainer;
-using VContainer.Unity;
 
-public class WorldObjectFactory : IWorldObjectFactory, IStartable
+public class WorldObjectFactory : IWorldObjectFactory
 {
-    private readonly IObjectResolver _resolver;
-    private GameActions _gameActions;
     private SceneLoader _sceneLoader;
 
-    [Inject]
-    public WorldObjectFactory(IObjectResolver resolver, GameActions gameActions, SceneLoader sceneLoader)
+    public WorldObjectFactory(SceneLoader sceneLoader)
     {
-        _resolver = resolver;
-        _gameActions = gameActions;
+        if (sceneLoader == null)
+        {
+            string isScenLoader = sceneLoader != null ? "присутствует" : "отсутствует";
+
+            GameLog.LogError($"Какой то из компонентов остутствует (SceneLoader:{isScenLoader})");
+        }
+
         _sceneLoader = sceneLoader;
 
-        if (_gameActions != null)
-        {
-            _gameActions.OnDropItemInWorld += SpawnItem;
-        }
+        //if (_gameActions != null)
+        //{
+        //    _gameActions.OnDropItemInWorld += SpawnItem;
+
+        //    GameLog.LogInfo("Фабрика создания предметов в мире успешнос создана");
+        //}
     }
 
     public void Start() { }
 
     public void SpawnItem(ItemInstance item, Vector3 position, Quaternion rotation)
     {
-            Debug.Log("запуск");
         if (item._itemData == null)
         {
-            Debug.LogError("Фабрика: Попытка заспавнить пустой ItemData!");
+            GameLog.LogError("Попытка заспавнить пустой ItemData!");
         }
 
         if (item._itemData.worldPrefab == null)
         {
-            Debug.LogError($"Фабрика: У предмета {item._itemData.itemName} отсутствует worldPrefab!");
+            GameLog.LogError($"У предмета {item._itemData.itemName} отсутствует worldPrefab!");
         }
 
-        GameObject spawnedObject = _resolver.Instantiate(item._itemData.worldPrefab, position, rotation);
-        if (spawnedObject == null)
-        {
-            return;
-        }
+        //GameObject spawnedObject = _resolver.Instantiate(item._itemData.worldPrefab, position, rotation);
+        //if (spawnedObject == null) return;
 
-        Scene targetScene = SceneManager.GetSceneByName(_sceneLoader._currentMapName);
+        //Scene targetScene = SceneManager.GetSceneByName(_sceneLoader._currentMapName);
 
-        if (targetScene.isLoaded)
-        {
-            SceneManager.MoveGameObjectToScene(spawnedObject, SceneManager.GetSceneByName(_sceneLoader._currentMapName));
-        }
+        //if (targetScene.isLoaded)
+        //{
+        //    SceneManager.MoveGameObjectToScene(spawnedObject, SceneManager.GetSceneByName(_sceneLoader._currentMapName));
+        //}
 
-        var worldItem = spawnedObject.GetComponent<ItemWorld>();
-        if (worldItem != null)
-        {
-            worldItem.Initialize(item);
-            Debug.Log("инициализация");
-        }
+        //var worldItem = spawnedObject.GetComponent<ItemWorld>();
+        //if (worldItem != null)
+        //{
+        //    worldItem.Initialize(item);
+        //}
     }
 }

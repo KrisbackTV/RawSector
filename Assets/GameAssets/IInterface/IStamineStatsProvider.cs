@@ -5,8 +5,8 @@ public interface IStamineStatsProvider
 {
     float CurrentStamina { get; }
     float MaxStamina { get; }
-    float RegenRate { get; }
-    float RegenDelay { get; }
+    float StaminaRegenRate { get; }
+    float StaminaRegenDelay { get; }
     float SprintCost { get; }
     float JumpCost { get; }
 

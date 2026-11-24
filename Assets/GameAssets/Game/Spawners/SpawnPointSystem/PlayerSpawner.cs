@@ -1,32 +1,55 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using VContainer;
-using VContainer.Unity;
 
-public class PlayerSpawner : IStartable
+public class PlayerSpawner
 {
-    private readonly IObjectResolver _resolver;
-    private readonly AssetsLibrarySO _assetsLibrarySO;
-    private readonly List<PlayerSpawnPoint> _points;
+    private GameObject PlayerPrefab { get; set; }
+    private InputService InputService { get; set; }
 
-    public PlayerSpawner(IObjectResolver resolver, AssetsLibrarySO assetsLibrarySO, List<PlayerSpawnPoint> points)
+    //Кэш
+    private PlayerData _playerData;
+    private GameObject _currentPlayer;
+
+    public PlayerSpawner(GameObject playerPrefab, InputService inputService, PlayerData playerData)
     {
-        _resolver = resolver;
-        _assetsLibrarySO = assetsLibrarySO;
-        _points = points;
+        _playerData = playerData;
+        PlayerPrefab = playerPrefab;
+        InputService = inputService;
     }
 
-    public void Start()
+    public void RespawnPlayer(PlayerSpawnPoint point)
     {
-        var targetPoint = _points[0];
-        var targetScene = _points[0].gameObject.scene;
+        if (_currentPlayer != null)
+        {
+            Object.Destroy(_currentPlayer);
 
-        var prefab = _assetsLibrarySO.playerPrefab;
-        var player = _resolver.Instantiate(prefab, targetPoint.transform.position, targetPoint.transform.rotation);
-        SceneManager.MoveGameObjectToScene(player, targetScene);
+            //if (_playerData != null)
+            //{
+            //    _playerData._playerRuntimeData.UpdateHealth(_playerData._playerRuntimeData.MaxHealth);
+            //    _playerData._playerRuntimeData.UpdateStamina(_playerData._playerRuntimeData.MaxStamina);
+            //}
+        }
 
-        //_resolver.InjectGameObject(player);
+        _currentPlayer = SpawnPlayer(PlayerPrefab, point);
+    }
+
+    private GameObject SpawnPlayer(GameObject playerPrefab, PlayerSpawnPoint point)
+    {
+        var targetPoint = point;
+        var targetScene = point.gameObject.scene;
+        var prefab = playerPrefab;
+
+        var player = Object.Instantiate(prefab, targetPoint.transform.position, targetPoint.transform.rotation);
+        PlayerBrain playerBrain = player.GetComponentInParent<PlayerBrain>();
+
+        if (playerBrain == null) 
+            GameLog.LogError("brain not searching");
+        else
+        {
+            playerBrain.Initialize(InputService, _playerData);
+        }
+
+        return player;
     }
 }

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5438ebcf542ba42b0dc0da51ae6673, type: 3}
+  m_Name: CubeItem
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  id: 6
+  itemName: CubeItem
+  type: 0
+  width: 1
+  height: 1
+  maxCount: 10
+  IsEquipped: 0
+  equipmentType: 0
+  _itemActionType: 0
+  ItemSprite: {fileID: 0}
+  worldPrefab: {fileID: 5931314666993512633, guid: 9007c9c591ca58f429f5da1222916a80, type: 3}
+  equipmentPrefab: {fileID: 0}
+  _isWeapon: 0
+  _gunStats:
+    weaponType: 0
+    damage: 0
+    roundsPerMinute: 0
+    range: 0
+    accuracy: 0
+  _isAmmo: 0
+  _ammoStats:
+    ammoType: 0
+    ammoCaliber: 0
+    damage: 0
+    armorPenetration: 0
+    bleedChance: 0

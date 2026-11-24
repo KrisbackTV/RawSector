@@ -6,23 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameScene/Core.unity
-    guid: 002eb7f3e5804fe4fbbd686cd4b97900
+    path: Assets/_ReworkGame/GameScene/CoreScene/CoreScene.unity
+    guid: 2e04e0f9db415b9428416a6a55588e84
   - enabled: 1
-    path: Assets/Scenes/GameScene/Menu.unity
-    guid: fc5302916204b1c4dbc2eb2cdfbc5f54
-  - enabled: 1
-    path: Assets/Scenes/GameScene/GamePlay.unity
-    guid: 1aa6cb2b608305448b0e1e8aba45947c
-  - enabled: 1
-    path: Assets/Scenes/GameScene/TestMup1.unity
-    guid: ac07da5c62853bb40949f68ad7820975
-  - enabled: 1
-    path: Assets/Scenes/GameScene/TestMup2.unity
-    guid: 04a673490c2be924cb727417144176ca
-  - enabled: 1
-    path: Assets/Scenes/GameScene/TestGameScene.unity
-    guid: 0db44bdcfb774ad44a3d6e2ea19af9dd
+    path: Assets/_ReworkGame/GameScene/LocationScene/TestLocation/TestLocation.unity
+    guid: 30acca0c882308e4faae45782ad10ed6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_UseUCBPForAssetBundles: 0

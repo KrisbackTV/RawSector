@@ -12,13 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75391cc08e75ca84993a5ff98b7ca9c9, type: 3}
   m_Name: InventoryState
   m_EditorClassIdentifier: Assembly-CSharp::InventoryState
-  _state: 2
-  assetsLibraryOS: {fileID: 11400000, guid: 05ab1fe56d1e61d4597d3e8b89c65e18, type: 2}
-  isOpenInventory: {fileID: 11400000, guid: 32d58b28b9059ee4ebcb56e24f468576, type: 2}
-  inventoryOwnerEvent: {fileID: 11400000, guid: ebc9dbc9153d50f498e16540a5361a15, type: 2}
-  equipSlotPrimaryGunOwner: {fileID: 11400000, guid: 90f83e60e2b895a4d97904d44cbbcfba, type: 2}
-  equipSlotSecondaryGunOwner: {fileID: 11400000, guid: 5bdb17a74d12600478ef4984ba61ddb7, type: 2}
-  equipSlotKnifeOwner: {fileID: 11400000, guid: 46b429af6e701f240bb46a8c5ce1fdc9, type: 2}
-  equipSlotGrenadeOwner: {fileID: 11400000, guid: 0072bde23884f41419d57d6293077998, type: 2}
-  equipSlotArmorOwner: {fileID: 11400000, guid: 4d03f9d4deae5ac489962aaed2709aef, type: 2}
-  equipSlotBackpackOwner: {fileID: 11400000, guid: 0b59496cb3c509c42800b12a8d390bfb, type: 2}
+  _state: 3

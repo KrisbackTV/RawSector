@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
-    [SerializeField] private int _pointId;
-    public int PointId => _pointId;
+    [SerializeField] private string _pointName = "default";
+    public string PointName => _pointName;
 
     private void OnDrawGizmos()
     {

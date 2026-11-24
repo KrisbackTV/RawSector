@@ -1,20 +1,15 @@
 using UnityEngine;
-using VContainer;
 
-public class EquipmentInput : MonoBehaviour
+public class EquipmentInput : MonoBehaviour, IEntityModule
 {
-    private InputService _inputProvider;
-    private PlayerData _runtimeData;
+    private IEquipmentDataProvider _equipmentDataProvider;
+    private IInputProvider _inputProvider;
 
-    [Inject]
-    public void Construct(InputService inputProvider, PlayerData playerData)
+    public void OnEntityInitializer(IEntityContext context)
     {
-        _inputProvider = inputProvider;
-        _runtimeData = playerData;
-    }
+        _equipmentDataProvider = context.EquipmentDataProvider;
+        _inputProvider = context.InputProvider;
 
-    private void Start()
-    {
         Subscribe();
     }
 
@@ -30,9 +25,8 @@ public class EquipmentInput : MonoBehaviour
             _ => EquipmentType.PrimaryGun,
         };
 
-        _runtimeData._playerRuntimeData.ChangeActiveSlot(type);
+        _equipmentDataProvider.ChangeActiveSlot(type);
     }
-
 
     private void Subscribe()
     {
@@ -49,14 +43,8 @@ public class EquipmentInput : MonoBehaviour
     }
 
 
-    private void OnDisable()
-    {
-        UnSubscribe();
-    }
+    private void OnDisable() => UnSubscribe();
 
-    private void OnDestroy()
-    {
-        UnSubscribe();
-    }
+    private void OnDestroy() => UnSubscribe();
 }
 

@@ -3,36 +3,61 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class EquipmentData : IItemSource
+public class EquipmentData : IItemSource, IEquipmentDataProvider
 {
-    private GameActions _inventoryActions;
-
     private ItemInstance _primaryGun;
     private ItemInstance _secondaryGun;
     private ItemInstance _knife;
     private ItemInstance _grenade;
     private ItemInstance _armor;
     private ItemInstance _backpack;
-    
 
-    public EquipmentData(GameActions inventoryActions)
+    public EquipmentType ActiveSlot { get; private set; } = EquipmentType.PrimaryGun;
+    public event Action<ItemInstance> OnActiveItemChanged;
+    public EquipmentData()
     {
-        _inventoryActions = inventoryActions;
-        if (_inventoryActions != null)
+        //_inventoryActions = inventoryActions;
+        //if (_inventoryActions != null)
+        //{
+        //    _inventoryActions.OnGetItemForEquipSlot += GetItemForEquipSlot;
+        //}
+    }
+
+    public void ChangeActiveSlot(EquipmentType newSlot)
+    {
+        if (ActiveSlot == newSlot) return;
+        ActiveSlot = newSlot;
+
+        OnActiveItemChanged?.Invoke(ActiveHandItem);
+    }
+
+
+    public ItemInstance ActiveHandItem
+    {
+        get
         {
-            _inventoryActions.OnGetItemForEquipSlot += GetItemForEquipSlot;
+            if (ActiveSlot == EquipmentType.PrimaryGun ||
+                ActiveSlot == EquipmentType.SecondaryGun ||
+                ActiveSlot == EquipmentType.Knife ||
+                ActiveSlot == EquipmentType.Grenade)
+            {
+                return GetItemToSlot(ActiveSlot);
+            }
+            
+            return null;
         }
     }
-    
+
+
     public void Sourse(DragContextItem dragContextItem, Action<bool> callback)
     {
-        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
+        //_inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
         callback?.Invoke(true);
     }
 
     public void Receive(DragContextItem dragContextItem, Action<bool> callback)
     {
-        _inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
+        //_inventoryActions.InvokeOnDropItemToEquipmentSlot(this, dragContextItem._itemInstance);
         callback?.Invoke(true);
     }
 
@@ -44,7 +69,7 @@ public class EquipmentData : IItemSource
             return;
         }
 
-        _inventoryActions.InvokeOnRemoveItemToEquipmentSlot(this, item._itemData.equipmentType);
+        //_inventoryActions.InvokeOnRemoveItemToEquipmentSlot(this, item._itemData.equipmentType);
         callback?.Invoke(true);
     }
 
@@ -93,7 +118,12 @@ public class EquipmentData : IItemSource
                 break;
         }
 
-        _inventoryActions.InvokeOnUpdateToEquipmentSlot(type, item);
+        //_inventoryActions.InvokeOnUpdateToEquipmentSlot(type, item);
+
+        if (type == ActiveSlot)
+        {
+            OnActiveItemChanged?.Invoke(ActiveHandItem);
+        }
     }
 
 }

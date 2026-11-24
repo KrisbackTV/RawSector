@@ -3,15 +3,15 @@ using UnityEngine;
 
 public interface IInputProvider
 {
-    Vector3 GetMovement();
-    Vector2 GetLook();
+    float Sensivity { get; }
+    Vector3 GetMovement { get; }
+    Vector2 GetLook { get; }
 
     event Action OnPronePressed;
     event Action OnJumpPressed;
-    event Action OnInventoryPressed;
+    event Action OnOpenInventory;
     event Action OnInteractPressed;
     event Action<bool> OnCrouchPressed;
     event Action<bool> OnSprintPressed;
     event Action<int> OnSlotPressed;
-
 }

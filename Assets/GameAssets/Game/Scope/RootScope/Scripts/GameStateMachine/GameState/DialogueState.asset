@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42e26299d413e46abfc011dad8ab7d, type: 3}
   m_Name: DialogueState
   m_EditorClassIdentifier: Assembly-CSharp::DialogueState
-  _state: 0
+  _state: 5

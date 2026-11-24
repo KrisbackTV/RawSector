@@ -2,68 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryData : IItemSource
+public class InventoryData : IInventoryProvider
 {
-    private GameActions _inventoryActions;
+    public InventoryData Inventory { get => this; }
 
-    public ItemInstance[,] _items;
-    public Dictionary<ItemInstance, Vector2Int> _itemPosition;
+    public List<ItemInstance> _itemList;
+    public event Action<List<ItemInstance>> OnChanged;
 
-    public int Width { get; private set; }
-    public int Height { get; private set; }
-
-    public ItemType InventoryType { get; private set; }
-
-    public event Action<InventoryData> OnChanged;
-
-    public InventoryData(InventorySO inventorySO, GameActions inventoryActions)
+    public InventoryData()
     {
-        _inventoryActions = inventoryActions;
-
-        Width = inventorySO.width;
-        Height = inventorySO.height;
-
-        InventoryType = inventorySO.inventoryType;
-
-        _items = new ItemInstance[Width, Height];
-        _itemPosition = new Dictionary<ItemInstance, Vector2Int>();
+        _itemList = new List<ItemInstance>();
     }
 
     public void NotifyChange()
     {
-        OnChanged?.Invoke(this);
+        OnChanged?.Invoke(this._itemList);
     }
 
-    public void Sourse(DragContextItem contextItem, Action<bool> callback)
+    public void TryAddItem(ItemInstance item)
     {
-        if (contextItem == null)
-        {
-            callback?.Invoke(false);
-            return;
-        }
-
-        _inventoryActions.InvokeOnTryAddToFreeSlotToInventory(this, contextItem._itemInstance, callback);
-    }
-
-    public void Receive(DragContextItem contextItem, Action<bool> callback)
-    {
-        if (contextItem == null)
-        {
-            callback?.Invoke(false);
-            return;
-        }
-
-        _inventoryActions.InvokeOnTryPlaceItemToInventory(this, contextItem._itemInstance, contextItem._posInventoryGrid.x, contextItem._posInventoryGrid.y, callback);
-    }
-
-    public void Remove(ItemInstance item, Action<bool> callback)
-    {
-        if (item == null)
-        {
-            callback?.Invoke(false);
-            return;
-        }
-
-        _inventoryActions.InvokeOnRemoveItemForInventory(this, item, callback);
+        _itemList.Add(item);
+        NotifyChange();
     }
 }

@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc6342d510cdd54297c55e6512a34b4, type: 3}
   m_Name: EscMenuState
   m_EditorClassIdentifier: Assembly-CSharp::PauseState
-  _state: 3
-  assetsLibraryOS: {fileID: 11400000, guid: ed19dddae0e021247b8bc279f66630f9, type: 2}
+  _state: 4

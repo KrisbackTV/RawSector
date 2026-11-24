@@ -1,6 +1,5 @@
-using VContainer.Unity;
 
-public class StateMachineRunner : ITickable
+public class StateMachineRunner
 {
     private readonly GameStateMachine _stateMachine;
 

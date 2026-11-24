@@ -1,16 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using VContainer;
 
 public class BackgroundInteractPanel : MonoBehaviour, IPointerDownHandler
 {
-    private GameActions _inventoryActions;
-    [Inject]
-    public void Construct(GameActions inventoryActions)
-    {
-        _inventoryActions = inventoryActions;
-    }
-
 
     private CanvasGroup _canvasGroup;
     public GameObject _gameObject => gameObject;
@@ -41,17 +33,17 @@ public class BackgroundInteractPanel : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        switch (eventData)
-        {
-            case { button: PointerEventData.InputButton.Left }:
-                if (_inventoryActions == null) Debug.Log("null");
-                _inventoryActions.InvokeOnCloseInteractMenu();
-                break;
+        //switch (eventData)
+        //{
+        //    case { button: PointerEventData.InputButton.Left }:
+        //        if (_inventoryActions == null) Debug.Log("null");
+        //        _inventoryActions.InvokeOnCloseInteractMenu();
+        //        break;
 
-            case { button: PointerEventData.InputButton.Right }:
-                _inventoryActions.InvokeOnCloseInteractMenu();
-                break;
-        }
+        //    case { button: PointerEventData.InputButton.Right }:
+        //        _inventoryActions.InvokeOnCloseInteractMenu();
+        //        break;
+        //}
 
     }
 }

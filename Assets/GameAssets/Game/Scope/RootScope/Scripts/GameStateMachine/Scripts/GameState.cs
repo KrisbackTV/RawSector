@@ -1,17 +1,19 @@
 using UnityEngine;
 
-public enum GameCoreState
+public enum GameMachineState
 {
     Menu,
+    SaveLoadMenu,
     Gameplay,
     Inventory,
     EscMenu,
-    Dialogue
+    Dialogue,
+    Dead
 }
 
 public abstract class GameState : ScriptableObject
 {
-    public GameCoreState _state;
+    public GameMachineState _state;
 
     public virtual void EnterState()
     {

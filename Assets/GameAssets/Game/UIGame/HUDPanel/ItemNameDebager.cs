@@ -1,16 +1,8 @@
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 public class ItemNameDebager : MonoBehaviour
 {
-    private AssetsLibrarySO _assetsLibrarySO;
-    [Inject]
-    public void Construct(AssetsLibrarySO assetsLibrarySO)
-    {
-        _assetsLibrarySO = assetsLibrarySO;
-    }
-
     private TextMeshProUGUI _debugItemName;
 
     private void Start()
@@ -37,13 +29,13 @@ public class ItemNameDebager : MonoBehaviour
 
     private void Subscribe()
     {
-        _assetsLibrarySO.OnInteractItemName += SetDebugItemText;
+        //_gameActions.OnInteractItemName += SetDebugItemText;
     }
 
 
     private void UnSubscribe()
     {
-        _assetsLibrarySO.OnInteractItemName -= SetDebugItemText;
+        //_gameActions.OnInteractItemName -= SetDebugItemText;
     }
 
     private void OnDestroy()

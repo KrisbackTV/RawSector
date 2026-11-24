@@ -1,5 +1,4 @@
 using UnityEngine;
-using VContainer;
 
 public class HandsSway : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class HandsSway : MonoBehaviour
 
     private Vector3 _initialPosition;
 
-    [Inject]
     public void Construct(IInputProvider inputProvider)
     {
         _inputProvider = inputProvider;
@@ -34,7 +32,7 @@ public class HandsSway : MonoBehaviour
         if (_inputProvider == null) return;
 
         // 1. Получаем ввод взгляда
-        Vector2 lookInput = _inputProvider.GetLook();
+        Vector2 lookInput = _inputProvider.GetLook;
 
         // 2. Считаем смещение (инвертируем, чтобы отставало)
         float targetX = -lookInput.x * _swayAmount;
